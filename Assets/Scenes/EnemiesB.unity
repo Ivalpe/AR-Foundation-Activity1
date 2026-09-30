@@ -200,9 +200,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 51861d4e9bdb2194abc4bdb51cb97b04, type: 3}
       insertIndex: -1
       addedObject: {fileID: 945900533}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 51861d4e9bdb2194abc4bdb51cb97b04, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 945900534}
   m_SourcePrefab: {fileID: 100100000, guid: 51861d4e9bdb2194abc4bdb51cb97b04, type: 3}
 --- !u!1 &410087039
 GameObject:
@@ -421,28 +418,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1.29, y: 1.52, z: 1}
   m_Center: {x: 0, y: 0.81, z: 0}
---- !u!195 &945900534
-NavMeshAgent:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 945900528}
-  m_Enabled: 1
-  m_AgentTypeID: 0
-  m_Radius: 0.5
-  m_Speed: 3.5
-  m_Acceleration: 8
-  avoidancePriority: 50
-  m_AngularSpeed: 120
-  m_StoppingDistance: 0
-  m_AutoTraverseOffMeshLink: 1
-  m_AutoBraking: 1
-  m_AutoRepath: 1
-  m_Height: 2
-  m_BaseOffset: 0
-  m_WalkableMask: 4294967295
-  m_ObstacleAvoidanceType: 4
 --- !u!1001 &1050079608
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -497,7 +472,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 999b4b4b2590f614291bf1cac422da00, type: 3}
       propertyPath: m_TagString
-      value: Food
+      value: Foodprueba
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
