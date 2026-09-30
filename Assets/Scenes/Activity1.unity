@@ -393,8 +393,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MultipleImagesTrackingManager
   prefabsToSpawn:
-  - {fileID: 234275524051544097, guid: 954c62cbc1849344994bae8df9f2d3ef, type: 3}
-  - {fileID: 8415646662651087481, guid: a642ea052978f034eaad9e10480ba583, type: 3}
+  - {fileID: 9118198420338899228, guid: 46592ffc986c3b24f93b9e9859287dff, type: 3}
+  - {fileID: 869415979528428517, guid: 63582162a5cbd8b45a373da4f46048b2, type: 3}
+  - {fileID: 2250344615009652841, guid: ecce17b7d82b64442b5b31ae08dc2607, type: 3}
   screenPadding: 0.05
 --- !u!114 &1136154466
 MonoBehaviour:
