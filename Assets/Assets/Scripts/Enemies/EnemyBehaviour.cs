@@ -1,25 +1,34 @@
+using System;
 using UnityEngine;
 
 public class EnemyBehaviour : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
+    [SerializeField] private float maxHealth = 100f;
+    private float currentHealth;
 
-    // Update is called once per frame
-    void Update()
+    private void Awake()
     {
-        
+        currentHealth = maxHealth;
     }
 
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("Food"))
         {
-            Destroy(this.gameObject);
-            
+            if (currentHealth <= 0) return;
+
+            currentHealth -= 50;
+
+            if (currentHealth <= 0)
+            {
+                Die();
+            }
+
         }
+    }
+
+    private void Die()
+    {
+        Destroy(gameObject);
     }
 }

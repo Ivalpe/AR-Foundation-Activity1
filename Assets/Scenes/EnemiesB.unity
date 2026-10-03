@@ -328,6 +328,57 @@ MonoBehaviour:
   m_ShadowLayerMask: 1
   m_RenderingLayers: 1
   m_ShadowRenderingLayers: 1
+--- !u!1 &727973732
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 727973734}
+  - component: {fileID: 727973733}
+  m_Layer: 0
+  m_Name: WaveControl
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &727973733
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 727973732}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2cf9202f25942554db9be148751429d5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WaveControl
+  player: {fileID: 0}
+  enemyPrefabs: []
+  minDistance: 1.5
+  maxDistance: 4
+  timeBetweenWaves: 4
+  baseEnemies: 3
+  enemiesIncreasePerWave: 2
+--- !u!4 &727973734
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 727973732}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.78639, y: 0, z: 3.80927}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &945900528 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 51861d4e9bdb2194abc4bdb51cb97b04, type: 3}
@@ -349,7 +400,6 @@ MonoBehaviour:
   m_BlackboardVariableOverridesList:
   - rid: 3929087904795590916
   - rid: 3929087904795591023
-  - rid: 3929087904795591228
   m_OriginalGraph: {fileID: 0}
   m_IsInitialised: 0
   m_IsStarted: 0
@@ -372,14 +422,6 @@ MonoBehaviour:
           m_Value1: 17060671748091032957
         Name: Target
         m_Value: {fileID: 2512387468973847775}
-    - rid: 3929087904795591228
-      type: {class: 'BlackboardVariable`1[[UnityEngine.GameObject, UnityEngine.CoreModule]]', ns: Unity.Behavior, asm: Unity.Behavior}
-      data:
-        GUID:
-          m_Value0: 6483485756707495866
-          m_Value1: 16306976706513365385
-        Name: Food
-        m_Value: {fileID: 1393294890}
 --- !u!114 &945900530
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1010,3 +1052,4 @@ SceneRoots:
   - {fileID: 410087041}
   - {fileID: 319252514}
   - {fileID: 1050079608}
+  - {fileID: 727973734}
