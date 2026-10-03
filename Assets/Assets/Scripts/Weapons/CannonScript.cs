@@ -74,15 +74,25 @@ public class CannonScript : MonoBehaviour
 
 
         int randSFX = Random.Range(0, shootSFX.Length);
-        cannonSource.pitch = Random.Range(0.5f, 2.0f);
-        cannonSource.PlayOneShot(shootSFX[randSFX]);
+
+        if (cannonSource)
+        {
+            cannonSource.pitch = Random.Range(0.5f, 2.0f);
+            cannonSource.PlayOneShot(shootSFX[randSFX]);
+        }
+ 
 
         //cannonAnimator.gameObject.transform.LookAt(colliderScript.target);
         projectile.transform.SetParent(null);
-        projectile.GetComponent<Rigidbody>().AddForce(cannon.transform.forward * shootForce, ForceMode.Force);
+        projectile.GetComponent<Rigidbody>().AddForce(shootDir * shootForce, ForceMode.Force);
         Destroy(projectile, 5f);
 
         
         
+    }
+
+    private void OnDestroy()
+    {
+        StopAllCoroutines();
     }
 }

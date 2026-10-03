@@ -9,11 +9,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5640230476157113226}
-  - component: {fileID: 3651981730438598977}
   - component: {fileID: 1677318330001799235}
   - component: {fileID: 2485204253045353806}
   - component: {fileID: 8514029074561439474}
   - component: {fileID: 8925027324764884597}
+  - component: {fileID: 264609306937141934}
+  - component: {fileID: 7144814364820169376}
   m_Layer: 0
   m_Name: animal-chick
   m_TagString: Enemy
@@ -29,7 +30,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 199809141171364430}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.0009120492, y: 0.9999986, z: 0.0008837984, w: -0.0011166048}
+  m_LocalRotation: {x: 0.00090860133, y: 0.9999986, z: 0.0008803875, w: -0.0011177659}
   m_LocalPosition: {x: -5.538232, y: -0.00000041327075, z: -0.12295127}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -37,44 +38,6 @@ Transform:
   - {fileID: 2919883514252567538}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: -0.101, y: 180.128, z: 0.104}
---- !u!114 &3651981730438598977
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 199809141171364430}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f0038c16c34866b4f9e25c9c0dc0f7e6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Unity.Behavior::Unity.Behavior.BehaviorGraphAgent
-  m_Graph: {fileID: -6732178933471982412, guid: 9a9f689d7c29c95489bb849ee1bb7b2b, type: 2}
-  m_BlackboardVariableOverridesList:
-  - rid: 4886594792321712230
-  - rid: 4886594792321712231
-  m_OriginalGraph: {fileID: 0}
-  m_IsInitialised: 0
-  m_IsStarted: 0
-  references:
-    version: 2
-    RefIds:
-    - rid: 4886594792321712230
-      type: {class: 'BlackboardVariable`1[[UnityEngine.GameObject, UnityEngine.CoreModule]]', ns: Unity.Behavior, asm: Unity.Behavior}
-      data:
-        GUID:
-          m_Value0: 1
-          m_Value1: 0
-        Name: Self
-        m_Value: {fileID: 199809141171364430}
-    - rid: 4886594792321712231
-      type: {class: 'BlackboardVariable`1[[UnityEngine.GameObject, UnityEngine.CoreModule]]', ns: Unity.Behavior, asm: Unity.Behavior}
-      data:
-        GUID:
-          m_Value0: 1567724276150971677
-          m_Value1: 17060671748091032957
-        Name: Target
-        m_Value: {fileID: 0}
 --- !u!65 &1677318330001799235
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -137,6 +100,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyBehaviour
   maxHealth: 100
   favFood: Sweet
+  omnomSFX: {fileID: 8300000, guid: acd6acd3397fb134680da24a0fb99365, type: 3}
+  animalSFX:
+  - {fileID: 8300000, guid: d44346cd00d5cca4c851912440d99793, type: 3}
+  - {fileID: 8300000, guid: 8dc4ab81893624d4c9ae15243490b041, type: 3}
+  - {fileID: 8300000, guid: e5a30b3ee75355f43b61d77d559c04b7, type: 3}
+  - {fileID: 8300000, guid: 44fd7a3c54b7fbf4e91350b175543678, type: 3}
+  airborne: 1
 --- !u!95 &8925027324764884597
 Animator:
   serializedVersion: 7
@@ -159,6 +129,125 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!82 &264609306937141934
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 199809141171364430}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_Resource: {fileID: 8300000, guid: acd6acd3397fb134680da24a0fb99365, type: 3}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 5
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+--- !u!195 &7144814364820169376
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 199809141171364430}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 3.92
+  m_BaseOffset: 2.33
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
 --- !u!1 &1662697207594720452
 GameObject:
   m_ObjectHideFlags: 0

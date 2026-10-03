@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 5398875858378897203}
   m_Layer: 0
   m_Name: candycorn
-  m_TagString: Fruit
+  m_TagString: Sweet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -111,7 +111,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.022351727, y: 0.026324175, z: -0.01}
+  m_Size: {x: 0.022351727, y: 0.026324175, z: 0.01}
   m_Center: {x: 0.00050234824, y: -0.00050856377, z: -1.3072822e-19}
 --- !u!54 &5398875858378897203
 Rigidbody:

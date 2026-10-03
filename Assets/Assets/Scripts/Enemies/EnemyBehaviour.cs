@@ -1,5 +1,7 @@
 using System;
+using System.Collections;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class EnemyBehaviour : MonoBehaviour
 {
@@ -12,24 +14,42 @@ public class EnemyBehaviour : MonoBehaviour
     AudioClip eatSFX;
     AudioSource animalSource;
     Animator animator;
-    Rigidbody rb;
+    //Rigidbody rb;
+    GameObject target;
+
+    NavMeshAgent agent;
 
     public bool airborne = false;
     float speed = 0.0f;
 
-    private void Awake()
+    private void Start()
     {
         currentHealth = maxHealth;
         animalSource = GetComponent<AudioSource>();
         animator = GetComponent<Animator>();
-        rb = GetComponent<Rigidbody>();
+        //rb = GetComponent<Rigidbody>(); --> rb isn't used with navmesh
+        agent = GetComponent<NavMeshAgent>();
+        target = GameObject.FindWithTag("MainCamera");
     }
 
     void Update()
     {
-        speed = Vector3.Magnitude(rb.linearVelocity);
-        Debug.Log($"{gameObject.name} speed = {speed}");
-        //animator.SetFloat("speed", speed);
+        if (agent)
+        {
+            if (target)
+            {
+                agent.SetDestination(target.transform.position);
+
+            }
+            speed = Vector3.Magnitude(agent.velocity);
+
+            if (animator) animator.SetFloat("speed", speed);
+        }
+        else
+        {
+            Debug.Log("WARNING: NavMeshAgent Component in " + gameObject.name + " is missing");
+        }
+            
     }
     private void OnCollisionEnter(Collision collision)
     {
@@ -42,33 +62,54 @@ public class EnemyBehaviour : MonoBehaviour
             if (collision.gameObject.CompareTag(favFood))
             {
                 currentHealth -= 50f; //2-shot
-                int rand = UnityEngine.Random.Range(0, animalSFX.Length);
-                eatSFX = animalSFX[rand];
+                if (animalSFX.Length > 0)
+                {
+                    int rand = UnityEngine.Random.Range(0, animalSFX.Length);
+                    eatSFX = animalSFX[rand];
+                }
+                else
+                {
+                    Debug.Log("WARNING: " + gameObject.name + " noises SFX array is empty");
+                }
             }
             else
             {
                 currentHealth -= 20.0f; //5-shot
                 eatSFX = omnomSFX;
+                
             }
 
+
+            if(animator)animator.SetTrigger("Ate");
+            else
+            {
+                Debug.Log("WARNING: Animator on " + gameObject.name + " not found");
+            }
+
+            if(animalSource && eatSFX) animalSource.PlayOneShot(eatSFX);
+            collision.gameObject.SetActive(false);
 
             if (currentHealth <= 0)
             {
-                Die();
+                StartCoroutine(GotFed());
             }
 
-            animalSource.PlayOneShot(eatSFX);
-
-            animator.SetTrigger("Ate");
-
-            collision.gameObject.SetActive(false);
+            
 
         }
     }
     
 
-    private void Die()
+    IEnumerator GotFed()
     {
+        if(agent) agent.isStopped = true;
+        yield return new WaitForSeconds(3.0f);
+      
         Destroy(gameObject);
+    }
+
+    private void OnDestroy()
+    {
+        StopAllCoroutines();
     }
 }
