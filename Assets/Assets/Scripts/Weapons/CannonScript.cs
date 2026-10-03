@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 
 public class CannonScript : MonoBehaviour
 {
@@ -10,8 +11,10 @@ public class CannonScript : MonoBehaviour
     public float detectRadius = 10f;
     float shootTimer = 0;
     public float shootInterval = 1.0f;
+    public float shootDelay = 0;
     public Transform shootPoint;
-    public float shootForce = 2.0f;
+    public float shootForce = 200.0f;
+    public float verticalShootForce = 0.2f;
 
     Vector3 shootDir = Vector3.zero;
     GameObject cannon;
@@ -36,26 +39,35 @@ public class CannonScript : MonoBehaviour
         {
             if (cannon && colliderScript.target)
             {
-                shootDir = (colliderScript.target.position - shootPoint.position).normalized + Vector3.up * 0.2f; //--> this is too precise!
-                
+                shootDir = (colliderScript.target.position - shootPoint.position).normalized + Vector3.up * verticalShootForce; //--> this is too precise!
 
-                Quaternion q = Quaternion.Slerp(cannon.transform.localRotation, Quaternion.LookRotation(shootDir), Time.deltaTime);
-                cannon.transform.SetLocalPositionAndRotation(cannon.transform.localPosition, q);
+                Vector3 lookDir = new Vector3(shootDir.x, 0f, shootDir.z); //so that the cannon doesn't tilt vertically
+
+                if (lookDir != Vector3.zero) {
+
+                    Quaternion q = Quaternion.Slerp(cannon.transform.localRotation, Quaternion.LookRotation(lookDir), Time.deltaTime);
+                    cannon.transform.SetLocalPositionAndRotation(cannon.transform.localPosition, q);
+                }
+
             }
 
             if(shootTimer >= shootInterval)
             {
 
-                Shoot();
+                StartCoroutine(Shoot());
+
+                shootTimer = 0;
 
             }
             
         }
     }
 
-    void Shoot()
+    IEnumerator Shoot()
     {
         cannonAnimator.SetTrigger("Shoot");
+
+        yield return new WaitForSeconds(shootDelay);
 
         int randObj = Random.Range(0, projectiles.Length);
         GameObject projectile = Instantiate(projectiles[randObj], shootPoint);
@@ -71,6 +83,6 @@ public class CannonScript : MonoBehaviour
         Destroy(projectile, 5f);
 
         
-        shootTimer = 0;
+        
     }
 }

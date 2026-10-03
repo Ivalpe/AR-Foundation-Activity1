@@ -129,11 +129,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CannonScript
   projectiles:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 2987983967736116652, guid: 5d86636a178ebe64db32a21d51618abf, type: 3}
+  - {fileID: 2822612876274629574, guid: 65831e37e45f9964f91eec659fcc7f3f, type: 3}
+  - {fileID: 4971756891864464547, guid: 7fa0927af1f87d745af778ac2b0515f8, type: 3}
+  - {fileID: 6578068721429621695, guid: b68755f802a2bef4fb748cfddcfa4f9a, type: 3}
+  detectRadius: 15
   shootInterval: 1
   shootPoint: {fileID: 7513277850942499681}
+  shootForce: 100
+  verticalShootForce: 0.2
+  shootSFX:
+  - {fileID: 8300000, guid: 387781163e9ecb9419c42ff8261ca4e2, type: 3}
+  - {fileID: 8300000, guid: a747a6341095cb9478f0aca93630712a, type: 3}
+  - {fileID: 8300000, guid: eff815a2e038bd345aa02485573de04e, type: 3}
+  - {fileID: 8300000, guid: 62b2740ca5c47ff4289f3468a8b97d76, type: 3}
 --- !u!1 &3830051634792162716
 GameObject:
   m_ObjectHideFlags: 0
@@ -186,7 +195,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 20
+  m_Radius: 15
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &5240531355632160015
 MonoBehaviour:
@@ -200,7 +209,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba7ea12f8007ce04ab4d178c1cf92046, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyDetection
-  detectRadius: 20
   inArea: 0
   target: {fileID: 0}
 --- !u!1 &5485109173688970091
@@ -212,6 +220,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7513277850942499681}
+  - component: {fileID: 1036670356743186659}
   m_Layer: 0
   m_Name: shootPoint
   m_TagString: Untagged
@@ -234,6 +243,103 @@ Transform:
   m_Children: []
   m_Father: {fileID: 8972547205965217208}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!82 &1036670356743186659
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5485109173688970091}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_Resource: {fileID: 0}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 4.4765983
+  MaxDistance: 18.37
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1001 &703371845616612836
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -368,6 +474,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7314745045437555281, guid: dc925acf7d2b1b142bf138b43f180c2a, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -1.443823e-15
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: dc925acf7d2b1b142bf138b43f180c2a, type: 3}
       propertyPath: m_Name
       value: weapon-cannon
@@ -378,13 +488,43 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: -7314745045437555281, guid: dc925acf7d2b1b142bf138b43f180c2a, type: 3}
       insertIndex: -1
       addedObject: {fileID: 7513277850942499681}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: dc925acf7d2b1b142bf138b43f180c2a, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6128154718812167578}
   m_SourcePrefab: {fileID: 100100000, guid: dc925acf7d2b1b142bf138b43f180c2a, type: 3}
 --- !u!4 &7021836924363130876 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: dc925acf7d2b1b142bf138b43f180c2a, type: 3}
   m_PrefabInstance: {fileID: 7419726598965796887}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &7654223628662381894 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: dc925acf7d2b1b142bf138b43f180c2a, type: 3}
+  m_PrefabInstance: {fileID: 7419726598965796887}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &6128154718812167578
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7654223628662381894}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 05ae4c3ae0ac5284fba7312b8958e186, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!4 &8972547205965217208 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -7314745045437555281, guid: dc925acf7d2b1b142bf138b43f180c2a, type: 3}
