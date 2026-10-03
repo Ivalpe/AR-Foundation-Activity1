@@ -1,0 +1,1 @@
+Requires Image Mapping mirrored X/Y
