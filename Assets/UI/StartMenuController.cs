@@ -1,17 +1,57 @@
 using UnityEngine;
+using UnityEngine.XR.ARFoundation; 
 
 public class StartMenuController : MonoBehaviour
 {
-    public GameObject startMenuPanel;
-    public GameObject arSessionOrigin; // Or your AR components to enable
+    [Header("UI Components")]
+    
+    [SerializeField] private CanvasGroup startMenuCanvasGroup;
 
+    [Header("AR Components")]
+    
+    [SerializeField] private ARSession arSession;
+
+    private void Start()
+    {
+        
+        if (startMenuCanvasGroup != null)
+        {
+            startMenuCanvasGroup.alpha = 1f;
+            startMenuCanvasGroup.interactable = true;
+            startMenuCanvasGroup.blocksRaycasts = true;
+        }
+
+        
+        if (arSession != null)
+        {
+            arSession.enabled = false;
+        }
+    }
+
+ 
     public void OnStartButtonClicked()
     {
-        // Hide the menu
-        startMenuPanel.SetActive(false);
+        
+        if (startMenuCanvasGroup != null)
+        {
+            startMenuCanvasGroup.alpha = 0f;          
+            startMenuCanvasGroup.interactable = false;  
+            startMenuCanvasGroup.blocksRaycasts = false; 
+        }
+        else
+        {
+            Debug.LogError("Falta assignar el 'Start Menu Canvas Group' a l'inspector!");
+        }
 
-        // Enable AR tracking/interaction if desired
-        if (arSessionOrigin != null)
-            arSessionOrigin.SetActive(true);
+        
+        if (arSession != null)
+        {
+            arSession.enabled = true;
+            Debug.Log("AR Session activada correctament.");
+        }
+        else
+        {
+            Debug.LogWarning("Falta assignar l' 'AR Session' a l'inspector.");
+        }
     }
 }
