@@ -430,10 +430,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Cannon
       objectReference: {fileID: 0}
-    - target: {fileID: 1275791213650377191, guid: 63582162a5cbd8b45a373da4f46048b2, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 4429870453751315105, guid: 63582162a5cbd8b45a373da4f46048b2, type: 3}
       propertyPath: m_LocalPosition.x
       value: -6.45
@@ -475,17 +471,14 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4555268843354229888, guid: 63582162a5cbd8b45a373da4f46048b2, type: 3}
-      propertyPath: startOutOfAmmo
-      value: 0
+      propertyPath: maxAmmo
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 7872646442966413492, guid: 63582162a5cbd8b45a373da4f46048b2, type: 3}
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 949685869}
-    m_RemovedComponents:
-    - {fileID: 765164194009182526, guid: 63582162a5cbd8b45a373da4f46048b2, type: 3}
-    - {fileID: 5202853249531160532, guid: 63582162a5cbd8b45a373da4f46048b2, type: 3}
-    - {fileID: 3657825605225128959, guid: 63582162a5cbd8b45a373da4f46048b2, type: 3}
+    m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -772,6 +765,10 @@ PrefabInstance:
     - target: {fileID: 6704458710034484854, guid: ecce17b7d82b64442b5b31ae08dc2607, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7127711224819436755, guid: ecce17b7d82b64442b5b31ae08dc2607, type: 3}
+      propertyPath: maxAmmo
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
