@@ -50,16 +50,16 @@ public class CannonScript : MonoBehaviour
 
         Vector2 screenPos = Vector2.zero;
 
-        // Cache the Canvas once
+        
         if (reloadPopUp == null)
         {
             reloadPopUp = GetComponentInChildren<Canvas>(true);
         }
 
-        // Pass 'out' so closestPoint receives the calculated position
+        
         if (IsVisible(this.gameObject, out Vector3 closestPoint))
         {
-            // FIX 1: Use world position (position) instead of localPosition!
+            
             float distToCam = Vector3.Distance(Camera.main.transform.position, closestPoint);
 
             if (distToCam <= maxCamDist)
@@ -131,9 +131,6 @@ public class CannonScript : MonoBehaviour
             }
 
         }
-        
-        
-
         
     }
 

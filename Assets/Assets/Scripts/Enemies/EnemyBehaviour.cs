@@ -17,9 +17,16 @@ public class EnemyBehaviour : MonoBehaviour
     //Rigidbody rb;
     GameObject target;
 
+    private GameObject normalSkin, fnafSkin;
+
     NavMeshAgent agent;
 
     public bool airborne = false;
+
+    LightEstimationManager lightEstScript;
+    [SerializeField] private float lightTreshold = 0.2f;
+    
+    
     float speed = 0.0f;
 
     private void Start()
@@ -30,10 +37,29 @@ public class EnemyBehaviour : MonoBehaviour
         //rb = GetComponent<Rigidbody>(); --> rb isn't used with navmesh
         agent = GetComponent<NavMeshAgent>();
         target = GameObject.FindWithTag("MainCamera");
+        lightEstScript = GameObject.FindAnyObjectByType<LightEstimationManager>();
+
+        normalSkin = transform.Find("root").gameObject;
+        if (normalSkin)
+        {
+            normalSkin.SetActive(true); 
+            //Debug.Log(gameObject.name + " normal skin FOUND");
+        }
+        else Debug.Log("Normal skin not found in " + gameObject.name);
+        
+        fnafSkin = transform.Find("fnafRoot").gameObject;
+        if (fnafSkin)
+        {
+            //Debug.Log(gameObject.name + " FNAF skin FOUND");
+            fnafSkin.SetActive(false);
+        }
+        else Debug.Log("FNAF skin not found in " + gameObject.name);
     }
 
     void Update()
     {
+        //if (lightEstScript) Debug.Log("Light object: " + lightEstScript.gameObject.name);
+
         if (agent)
         {
             if (target)
@@ -49,7 +75,35 @@ public class EnemyBehaviour : MonoBehaviour
         {
             Debug.Log("WARNING: NavMeshAgent Component in " + gameObject.name + " is missing");
         }
+
+        float lightEst;
+        if(!lightEstScript.brightness.HasValue)
+        {
+            lightEst = lightEstScript.testLight;
+        }
+        else
+        {
+            lightEst = lightEstScript.brightness.Value;
+        }
+
+        if(lightEst <= lightTreshold)
+        {
+            animator.enabled = false;
+            normalSkin.SetActive(false);
+            fnafSkin.SetActive(true);
+            GetComponent<BoxCollider>().enabled = false;
+            GetComponent<CapsuleCollider>().enabled = true;
+        }
+        else
+        {
+            animator.enabled = true;
+            normalSkin.SetActive(true);
+            fnafSkin.SetActive(false);
+            GetComponent<BoxCollider>().enabled = true;
+            GetComponent<CapsuleCollider>().enabled = false;
+        }
             
+
     }
     private void OnCollisionEnter(Collision collision)
     {
@@ -83,7 +137,7 @@ public class EnemyBehaviour : MonoBehaviour
             if(animator)animator.SetTrigger("Ate");
             else
             {
-                Debug.Log("WARNING: Animator on " + gameObject.name + " not found");
+                //Debug.Log("WARNING: Animator on " + gameObject.name + " not found");
             }
 
             if(animalSource && eatSFX) animalSource.PlayOneShot(eatSFX);
