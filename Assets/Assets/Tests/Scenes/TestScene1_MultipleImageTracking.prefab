@@ -398,6 +398,7 @@ GameObject:
   - component: {fileID: 1594118810536075580}
   - component: {fileID: 1353384515693615784}
   - component: {fileID: 5664617325222014234}
+  - component: {fileID: 2315226430171512498}
   m_Layer: 31
   m_Name: Floor
   m_TagString: Untagged
@@ -511,6 +512,38 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_ClassificationType: floor
+--- !u!114 &2315226430171512498
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3475735057603037936}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a5ac11cc976e418e8d13136b07e1f52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.AI.Navigation::Unity.AI.Navigation.NavMeshSurface
+  m_SerializedVersion: 0
+  m_AgentTypeID: 0
+  m_CollectObjects: 0
+  m_Size: {x: 10, y: 10, z: 10}
+  m_Center: {x: 0, y: 2, z: 0}
+  m_LayerMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_UseGeometry: 0
+  m_DefaultArea: 0
+  m_GenerateLinks: 0
+  m_IgnoreNavMeshAgent: 1
+  m_IgnoreNavMeshObstacle: 1
+  m_OverrideTileSize: 0
+  m_TileSize: 256
+  m_OverrideVoxelSize: 0
+  m_VoxelSize: 0.16666667
+  m_MinRegionArea: 2
+  m_NavMeshData: {fileID: 23800000, guid: 176332b0047f0e34694bd7579fd814da, type: 2}
+  m_BuildHeightMesh: 0
 --- !u!1 &4153951400406192154
 GameObject:
   m_ObjectHideFlags: 0
@@ -970,6 +1003,60 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_ClassificationType: wall
+--- !u!1 &5252659851782263746
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7399045499717801687}
+  - component: {fileID: 523500402477247110}
+  m_Layer: 31
+  m_Name: WaveControl
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7399045499717801687
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5252659851782263746}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4365528357719543085}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &523500402477247110
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5252659851782263746}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2cf9202f25942554db9be148751429d5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WaveControl
+  player: {fileID: 0}
+  enemyPrefabs:
+  - {fileID: 3021967409105444121, guid: a0575d25968c50447be73a0c65a61b6e, type: 3}
+  - {fileID: 199809141171364430, guid: 0018ceb8c4649e84aa8719beae6f169d, type: 3}
+  - {fileID: 614310587644262544, guid: 89e3825bbe49d974ead614707667b2c8, type: 3}
+  minDistance: 10
+  maxDistance: 15
+  timeBetweenWaves: 3
+  baseEnemies: 3
+  enemiesIncreasePerWave: 2
 --- !u!1 &5593309249175711831
 GameObject:
   m_ObjectHideFlags: 0
@@ -1331,6 +1418,7 @@ Transform:
   - {fileID: 5283108358406351049}
   - {fileID: 967815941483735921}
   - {fileID: 3075141509344897447}
+  - {fileID: 7399045499717801687}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &7618165371811446966

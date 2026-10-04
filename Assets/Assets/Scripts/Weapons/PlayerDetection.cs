@@ -1,4 +1,6 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.Controls;
 
 public class PlayerDetection : MonoBehaviour
 {
@@ -38,7 +40,7 @@ public class PlayerDetection : MonoBehaviour
         // 3. Handle Reload Input
         if (reloadPopUp != null && reloadPopUp.enabled)
         {
-            if (ScreenClickOrTap(ref screenPos) && cannonScript.GetCurrentAmmo() < cannonScript.maxAmmo)
+            if (Pointer.current.IsPressed() && cannonScript.GetCurrentAmmo() < cannonScript.maxAmmo)
             {
                 cannonScript.SetCurrentAmmo(cannonScript.GetCurrentAmmo() + 1);
 
@@ -68,22 +70,31 @@ public class PlayerDetection : MonoBehaviour
     }
     bool ScreenClickOrTap(ref Vector2 screenPos)
     {
+        //NEW INPUT SYSTEM --> Pointer unifies input from mouse, touch and stylus ! 
 
-        if (Input.GetMouseButtonDown(0))
+        if (Pointer.current != null && Pointer.current.press.wasPressedThisFrame)
         {
-
-            screenPos = Input.mousePosition;
-            return true;
-        }
-
-        if (Input.touchCount > 0)
-        {
-            //touch input
-            Touch touch = Input.GetTouch(0);
-            screenPos = touch.position;
-            return true;
+            screenPos = Pointer.current.position.ReadValue();
         }
 
         return false;
+        //OLD INPUT SYSTEM!
+        //if (Input.GetMouseButtonDown(0))
+        //{
+
+        //    screenPos = Input.mousePosition;
+        //    return true;
+        //}
+
+        //if (Input.touchCount > 0)
+        //{
+        //    //touch input
+        //    Touch touch = Input.GetTouch(0);
+        //    screenPos = touch.position;
+        //    return true;
+        //}
+
+        //NEW INPUT SYSTEM HAS "POINTER", which unifies mouse, stylus and touch input (GGs)
+
     }
 }

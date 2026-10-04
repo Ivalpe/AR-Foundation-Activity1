@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using Unity.Behavior;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -54,13 +55,30 @@ public class EnemyBehaviour : MonoBehaviour
             fnafSkin.SetActive(false);
         }
         else Debug.Log("FNAF skin not found in " + gameObject.name);
+
+
+        BehaviorGraphAgent behaviourGraph = GetComponentInChildren<BehaviorGraphAgent>();
+        if (behaviourGraph != null)
+        {
+            behaviourGraph.BlackboardReference.SetVariableValue("Target", target);
+            GameObject targetVar;
+            behaviourGraph.BlackboardReference.GetVariableValue("Target", out targetVar);
+            Debug.Log("Behaviour Graph Agent component FOUND, set target to " +  targetVar.name);
+            
+
+        }
+        else
+        {
+            
+            Debug.Log("Behaviour Graph Agent component not found");
+        }
     }
 
     void Update()
     {
         //if (lightEstScript) Debug.Log("Light object: " + lightEstScript.gameObject.name);
 
-        if (agent)
+        if (agent && agent.enabled)
         {
             if (target)
             {
@@ -69,12 +87,16 @@ public class EnemyBehaviour : MonoBehaviour
             }
             speed = Vector3.Magnitude(agent.velocity);
 
-            if (animator) animator.SetFloat("speed", speed);
+            
         }
         else
         {
-            Debug.Log("WARNING: NavMeshAgent Component in " + gameObject.name + " is missing");
+            //Debug.Log("WARNING: NavMeshAgent Component in " + gameObject.name + " is disabled or missing")
+            speed = Vector3.Magnitude(GetComponent<Rigidbody>().linearVelocity);
+            //Debug.Log(gameObject.name + " speed: " + speed);
         }
+
+        if (animator) animator.SetFloat("speed", speed);
 
         float lightEst;
         if(!lightEstScript.brightness.HasValue)
@@ -156,7 +178,7 @@ public class EnemyBehaviour : MonoBehaviour
 
     IEnumerator GotFed()
     {
-        if(agent) agent.isStopped = true;
+        if(agent && agent.enabled) agent.isStopped = true;
         yield return new WaitForSeconds(3.0f);
       
         Destroy(gameObject);

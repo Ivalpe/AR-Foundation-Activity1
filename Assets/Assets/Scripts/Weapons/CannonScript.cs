@@ -89,13 +89,18 @@ public class CannonScript : MonoBehaviour
         {
             if (ScreenClickOrTap(ref screenPos) && currentAmmo < maxAmmo)
             {
-                currentAmmo++;
+                if (RayHitVisibleTarget(this.gameObject))
+                {
+                    currentAmmo++;
+                    if (currentAmmo >= maxAmmo)
+                    {
+                        reloadPopUp.gameObject.SetActive(false);
+                    }
+                }
+                
                 //Debug.Log("current ammo of " + gameObject.name + ": " + currentAmmo);
 
-                if (currentAmmo >= maxAmmo)
-                {
-                    reloadPopUp.gameObject.SetActive(false);
-                }
+                
             }
         }
 
@@ -170,20 +175,27 @@ public class CannonScript : MonoBehaviour
 
     bool ScreenClickOrTap(ref Vector2 screenPos)
     {
-        
-        if (Input.GetMouseButtonDown(0))
-        {
+        //OLD INPUT SYSTEM
+        //if (Input.GetMouseButtonDown(0))
+        //{
 
-            screenPos = Input.mousePosition;
-            return true;
-        }
+        //    screenPos = Input.mousePosition;
+        //    return true;
+        //}
 
-        if(Input.touchCount > 0)
+        //if(Input.touchCount > 0)
+        //{
+        //    //touch input
+        //    Touch touch = Input.GetTouch(0);
+        //    screenPos = touch.position;
+        //    return true;
+        //}
+
+        //NEW INPUT SYSTEM --> Pointer unifies input from mouse, touch and stylus ! 
+
+        if(Pointer.current != null && Pointer.current.press.wasPressedThisFrame)
         {
-            //touch input
-            Touch touch = Input.GetTouch(0);
-            screenPos = touch.position;
-            return true;
+            screenPos = Pointer.current.position.ReadValue();
         }
 
         return false;
@@ -199,14 +211,34 @@ public class CannonScript : MonoBehaviour
         }
             
 
-        // Calculate the camera's 6 frustum planes (left, right, top, bottom, near, far)
+        
+        //bounds = the object's axis-aligned bounding box
         Plane[] planes = GeometryUtility.CalculateFrustumPlanes(Camera.main);
-
+        // Test if the object's AABB intersects the frustum
         bool isVisible = GeometryUtility.TestPlanesAABB(planes, rend.bounds);
+
+        //.ClosestPoint(Vector3 point) returns the closest point of the AABB to another given  point
+
         closestPoint = rend.bounds.ClosestPoint(Camera.main.transform.position);
 
-        // Test if the object's axis-aligned bounding box intersects the frustum
+        
         return isVisible;
+    }
+
+    public bool RayHitVisibleTarget(GameObject targetGO)
+    {
+        //Viewport coordinates are normalized and relative to the camera. The bottom-left of the camera is (0,0); the top-right is (1,1).
+        Ray ray = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0.0f));
+        RaycastHit hit;
+        if(Physics.Raycast(ray, out hit, maxCamDist))
+        {
+            if (hit.collider.gameObject.transform.IsChildOf(targetGO.transform) && hit.collider.gameObject.GetComponent<Renderer>())
+            {
+                return true;
+            }
+            
+        }
+        return false;
     }
 
     public int GetCurrentAmmo()
