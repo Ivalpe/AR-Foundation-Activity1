@@ -10,6 +10,7 @@ TagManager:
   - Meat
   - Fruit
   - Sweet
+  - Weapon
   layers:
   - Default
   - TransparentFX

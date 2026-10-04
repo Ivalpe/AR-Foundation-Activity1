@@ -1,5 +1,7 @@
 using UnityEngine;
 using System.Collections;
+using UnityEngine.InputSystem;
+using Unity.XR.CoreUtils;
 
 public class CannonScript : MonoBehaviour
 {
@@ -16,9 +18,17 @@ public class CannonScript : MonoBehaviour
     public float shootForce = 200.0f;
     public float verticalShootForce = 0.2f;
 
+    [SerializeField] public int maxAmmo = 10;
+    [SerializeField] private bool startOutOfAmmo = false;
+    int currentAmmo;
+    
+
     Vector3 shootDir = Vector3.zero;
     GameObject cannon;
 
+    [SerializeField] private float maxCamDist = 50.0f;
+
+    Canvas reloadPopUp;
 
     AudioSource cannonSource;
     public AudioClip[] shootSFX;
@@ -29,13 +39,72 @@ public class CannonScript : MonoBehaviour
         cannonAnimator = GetComponentInChildren<Animator>();
         cannonSource = GetComponentInChildren<AudioSource>();
         cannon = cannonAnimator.gameObject;
+
+        if (startOutOfAmmo) currentAmmo = 0;
+        else currentAmmo = maxAmmo;
     }
 
     // Update is called once per frame
     void Update()
     {
+
+        Vector2 screenPos = Vector2.zero;
+
+        // Cache the Canvas once
+        if (reloadPopUp == null)
+        {
+            reloadPopUp = GetComponentInChildren<Canvas>(true);
+        }
+
+        // Pass 'out' so closestPoint receives the calculated position
+        if (IsVisible(this.gameObject, out Vector3 closestPoint))
+        {
+            // FIX 1: Use world position (position) instead of localPosition!
+            float distToCam = Vector3.Distance(Camera.main.transform.position, closestPoint);
+
+            if (distToCam <= maxCamDist)
+            {
+                if (reloadPopUp && currentAmmo <= 0)
+                {
+                    reloadPopUp.gameObject.SetActive(true);
+                }
+            }
+            else
+            {
+                // Too far away -> disable popup
+                if (reloadPopUp) reloadPopUp.gameObject.SetActive(false);
+            }
+        }
+        else
+        {
+            // Not visible on screen -> disable popup
+            if (reloadPopUp != null)
+            {
+                reloadPopUp.gameObject.SetActive(false);
+            }
+        }
+
+        // Handle Reload Input
+        if (reloadPopUp && reloadPopUp.gameObject.activeSelf)
+        {
+            if (ScreenClickOrTap(ref screenPos) && currentAmmo < maxAmmo)
+            {
+                currentAmmo++;
+                //Debug.Log("current ammo of " + gameObject.name + ": " + currentAmmo);
+
+                if (currentAmmo >= maxAmmo)
+                {
+                    reloadPopUp.gameObject.SetActive(false);
+                }
+            }
+        }
+
+
+
+
+
         shootTimer += Time.deltaTime;
-        if (colliderScript.inArea)    
+        if (colliderScript.inArea)
         {
             if (cannon && colliderScript.target)
             {
@@ -43,7 +112,8 @@ public class CannonScript : MonoBehaviour
 
                 Vector3 lookDir = new Vector3(shootDir.x, 0f, shootDir.z); //so that the cannon doesn't tilt vertically
 
-                if (lookDir != Vector3.zero) {
+                if (lookDir != Vector3.zero)
+                {
 
                     Quaternion q = Quaternion.Slerp(cannon.transform.localRotation, Quaternion.LookRotation(lookDir), Time.deltaTime);
                     cannon.transform.SetLocalPositionAndRotation(cannon.transform.localPosition, q);
@@ -51,7 +121,7 @@ public class CannonScript : MonoBehaviour
 
             }
 
-            if(shootTimer >= shootInterval)
+            if (shootTimer >= shootInterval && currentAmmo > 0)
             {
 
                 StartCoroutine(Shoot());
@@ -59,8 +129,12 @@ public class CannonScript : MonoBehaviour
                 shootTimer = 0;
 
             }
-            
+
         }
+        
+        
+
+        
     }
 
     IEnumerator Shoot()
@@ -71,6 +145,7 @@ public class CannonScript : MonoBehaviour
 
         int randObj = Random.Range(0, projectiles.Length);
         GameObject projectile = Instantiate(projectiles[randObj], shootPoint);
+        currentAmmo--;
 
 
         int randSFX = Random.Range(0, shootSFX.Length);
@@ -94,5 +169,56 @@ public class CannonScript : MonoBehaviour
     private void OnDestroy()
     {
         StopAllCoroutines();
+    }
+
+    bool ScreenClickOrTap(ref Vector2 screenPos)
+    {
+        
+        if (Input.GetMouseButtonDown(0))
+        {
+
+            screenPos = Input.mousePosition;
+            return true;
+        }
+
+        if(Input.touchCount > 0)
+        {
+            //touch input
+            Touch touch = Input.GetTouch(0);
+            screenPos = touch.position;
+            return true;
+        }
+
+        return false;
+    }
+
+    public bool IsVisible(GameObject go, out Vector3 closestPoint)
+    {
+        Renderer rend = go.GetComponentInChildren<Renderer>();
+        if (rend == null || Camera.main == null)
+        {
+            closestPoint = this.transform.position;
+            return false;
+        }
+            
+
+        // Calculate the camera's 6 frustum planes (left, right, top, bottom, near, far)
+        Plane[] planes = GeometryUtility.CalculateFrustumPlanes(Camera.main);
+
+        bool isVisible = GeometryUtility.TestPlanesAABB(planes, rend.bounds);
+        closestPoint = rend.bounds.ClosestPoint(Camera.main.transform.position);
+
+        // Test if the object's axis-aligned bounding box intersects the frustum
+        return isVisible;
+    }
+
+    public int GetCurrentAmmo()
+    {
+        return currentAmmo;
+    }
+
+    public void SetCurrentAmmo(int newAmmo)
+    {
+        currentAmmo = newAmmo;
     }
 }
