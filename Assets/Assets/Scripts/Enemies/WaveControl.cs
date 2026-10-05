@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
+using Unity.Behavior;
 
 public class WaveControl : MonoBehaviour
 {
@@ -8,8 +10,9 @@ public class WaveControl : MonoBehaviour
     public List<GameObject> enemyPrefabs;
 
     [Header("Spawning")]
-    public float minDistance = 10f;
-    public float maxDistance = 15f;
+    public float minDistance = 2f;
+    public float maxDistance = 5f;
+    public float navMeshRadius = 2f;
 
     [Header("Oleadas")]
     public float timeBetweenWaves = 3f;
@@ -17,6 +20,8 @@ public class WaveControl : MonoBehaviour
     public int enemiesIncreasePerWave = 2;
 
     private int currentWave = 0;
+
+    [SerializeField] public ARNavMeshManager navManager;
 
     private void Start()
     {
@@ -27,7 +32,17 @@ public class WaveControl : MonoBehaviour
     }
 
     private IEnumerator WaveLoop()
-    {
+    { 
+        //hold wave spawning until nav mesh exists
+        if (navManager != null)
+        {
+            while (!navManager.HasNavMesh)
+            {
+                Debug.Log("NAVMESH NOT READY");
+                yield return new WaitForSeconds(0.5f);
+            }
+        }
+
         while (true)
         {
             currentWave++;
@@ -53,9 +68,29 @@ public class WaveControl : MonoBehaviour
         Vector2 circle = Random.insideUnitCircle.normalized * Random.Range(minDistance, maxDistance);
         Vector3 spawnPos = new Vector3(player.position.x + circle.x, player.position.y, player.position.z + circle.y);
 
+        NavMeshHit hit;
+        //project position to navmesh floor
+        if(NavMesh.SamplePosition(spawnPos, out hit, navMeshRadius, NavMesh.AllAreas))
+        {
+            spawnPos = hit.position; //snap the coordinates to the exact floor
+        }
+        else
+        {
+            if(NavMesh.SamplePosition(spawnPos, out hit, 30.0f, NavMesh.AllAreas))
+            {
+                spawnPos = hit.position;
+            }
+        }
+
         GameObject prefab = enemyPrefabs[Random.Range(0, enemyPrefabs.Count)];
         GameObject enemy = Instantiate(prefab, spawnPos, Quaternion.identity);
         enemy.tag = "Enemy";
+
+        NavMeshAgent agent = enemy.GetComponent<NavMeshAgent>();
+        if(agent != null)
+        {
+            agent.Warp(spawnPos);
+        }
 
         Vector3 lookDir = player.position - spawnPos;
         lookDir.y = 0;

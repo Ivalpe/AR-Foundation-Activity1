@@ -80,7 +80,23 @@ public class EnemyBehaviour : MonoBehaviour
 
         if (agent && agent.enabled)
         {
-            if (target)
+            NavMeshHit hit;
+            if (!agent.isOnNavMesh)
+            {
+                if(NavMesh.SamplePosition(transform.position, out hit, 5.0f, NavMesh.AllAreas))
+                {
+                    agent.Warp(hit.position);
+                }
+                else if(target != null)
+                {
+                    Vector3 fallbackPos = new Vector3(transform.position.x, target.transform.position.y - 1.5f, transform.position.z);
+                    agent.enabled = false;
+                    transform.position = fallbackPos;
+                    agent.enabled = true;
+                }
+            }
+            
+            if (target && agent.isOnNavMesh)
             {
                 agent.SetDestination(target.transform.position);
 
@@ -91,38 +107,43 @@ public class EnemyBehaviour : MonoBehaviour
         }
         else
         {
-            //Debug.Log("WARNING: NavMeshAgent Component in " + gameObject.name + " is disabled or missing")
-            speed = Vector3.Magnitude(GetComponent<Rigidbody>().linearVelocity);
-            //Debug.Log(gameObject.name + " speed: " + speed);
+            Rigidbody rb = GetComponent<Rigidbody>();
+            if (rb != null)
+            {
+                speed = Vector3.Magnitude(rb.linearVelocity);
+            }
         }
 
         if (animator) animator.SetFloat("speed", speed);
 
         float lightEst;
-        if(!lightEstScript.brightness.HasValue)
+        if(lightEstScript != null)
         {
-            lightEst = lightEstScript.testLight;
-        }
-        else
-        {
-            lightEst = lightEstScript.brightness.Value;
-        }
+            if (!lightEstScript.brightness.HasValue)
+            {
+                lightEst = lightEstScript.testLight;
+            }
+            else
+            {
+                lightEst = lightEstScript.brightness.Value;
+            }
 
-        if(lightEst <= lightTreshold)
-        {
-            animator.enabled = false;
-            normalSkin.SetActive(false);
-            fnafSkin.SetActive(true);
-            GetComponent<BoxCollider>().enabled = false;
-            GetComponent<CapsuleCollider>().enabled = true;
-        }
-        else
-        {
-            animator.enabled = true;
-            normalSkin.SetActive(true);
-            fnafSkin.SetActive(false);
-            GetComponent<BoxCollider>().enabled = true;
-            GetComponent<CapsuleCollider>().enabled = false;
+            if (lightEst <= lightTreshold)
+            {
+                animator.enabled = false;
+                normalSkin.SetActive(false);
+                fnafSkin.SetActive(true);
+                GetComponent<BoxCollider>().enabled = false;
+                GetComponent<CapsuleCollider>().enabled = true;
+            }
+            else
+            {
+                animator.enabled = true;
+                normalSkin.SetActive(true);
+                fnafSkin.SetActive(false);
+                GetComponent<BoxCollider>().enabled = true;
+                GetComponent<CapsuleCollider>().enabled = false;
+            }
         }
             
 

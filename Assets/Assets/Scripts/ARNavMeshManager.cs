@@ -1,0 +1,56 @@
+using UnityEngine;
+using Unity.AI.Navigation;
+using System.Collections;
+
+public class ARNavMeshManager : MonoBehaviour
+{
+    [SerializeField] private NavMeshSurface navMeshSurface;
+    [SerializeField] private float updateInterval = 1.0f; //how often it updates
+
+    //bake the nav mesh (since it updates as the user moves the device)
+    private Coroutine navMeshBake;
+
+    public bool HasNavMesh { get; private set; } = false;
+
+    private void Awake()
+    {
+        if (navMeshSurface == null)
+            navMeshSurface = GetComponent<NavMeshSurface>();
+    }
+
+    private void OnEnable()
+    {
+        navMeshBake = StartCoroutine(nameof(BakeNavMesh));
+    }
+
+    private void OnDisable()
+    {
+        if(navMeshBake != null) StopCoroutine(navMeshBake);
+    }
+
+    private IEnumerator BakeNavMesh()
+    {
+        yield return null;
+
+        while (true)
+        {
+            if (navMeshSurface != null)
+            {
+                if (navMeshSurface.navMeshData == null)
+                {
+                    //build nav mesh
+                    navMeshSurface.BuildNavMesh();
+                }
+                else
+                {
+                    //update nav mesh with new detected planes
+                    navMeshSurface.UpdateNavMesh(navMeshSurface.navMeshData);
+                }
+                //communicate that nav mesh has been created
+                HasNavMesh = true;
+            }
+
+            yield return new WaitForSeconds(updateInterval);
+        }
+    }
+}
