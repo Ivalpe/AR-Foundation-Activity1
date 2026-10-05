@@ -1,7 +1,14 @@
 fileFormatVersion: 2
 guid: 03e191318ab772d49bef55124f7464b0
+AssetOrigin:
+  serializedVersion: 1
+  productId: 396896
+  packageName: 3D Food Asset Pack
+  packageVersion: 1.0
+  assetPath: Assets/Styloo/3D Food Asset Pack/Models/burgerall.fbx
+  uploadId: 964388
 ModelImporter:
-  serializedVersion: 24501
+  serializedVersion: 24200
   internalIDToNameTable: []
   externalObjects:
   - first:
@@ -24,7 +31,6 @@ ModelImporter:
     materialName: 1
     materialSearch: 2
     materialLocation: 1
-    searchTexturesGlobally: 0
   animations:
     legacyGenerateAnimations: 4
     bakeSimulation: 0
@@ -46,7 +52,7 @@ ModelImporter:
     extraExposedTransformPaths: []
     extraUserProperties: []
     clipAnimations: []
-    isReadable: 0
+    isReadable: 1
   meshes:
     lODScreenPercentages: []
     globalScale: 1
@@ -75,8 +81,6 @@ ModelImporter:
     generateMeshLods: 0
     meshLodGenerationFlags: 0
     maximumMeshLod: -1
-    importUVs: -1
-    importVertexColors: 1
     meshOptimizationFlags: -1
     indexFormat: 0
     secondaryUVAngleDistortion: 8
@@ -96,7 +100,6 @@ ModelImporter:
     legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
     blendShapeNormalImportMode: 1
     normalSmoothingSource: 0
-    calculateBlendshapeNormalsDeltaFromImportedNormals: 0
   referencedClips: []
   importAnimation: 1
   humanDescription:
@@ -127,10 +130,3 @@ ModelImporter:
   userData: 
   assetBundleName: 
   assetBundleVariant: 
-AssetOrigin:
-  serializedVersion: 1
-  productId: 396896
-  packageName: 3D Food Asset Pack
-  packageVersion: 1.0
-  assetPath: Assets/Styloo/3D Food Asset Pack/Models/burgerall.fbx
-  uploadId: 964388

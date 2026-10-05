@@ -1,5 +1,12 @@
 fileFormatVersion: 2
 guid: a63114e8d5d134d9b8370dec53dc971f
+AssetOrigin:
+  serializedVersion: 1
+  productId: 403436
+  packageName: Ultimate Food Pack - Low Poly 3D Food & Kitchen Assets
+  packageVersion: 1.0
+  assetPath: Assets/Ultimate_Food_Pack/Models/Burger_Bread.obj
+  uploadId: 984106
 ModelImporter:
   serializedVersion: 24200
   internalIDToNameTable: []
@@ -30,7 +37,7 @@ ModelImporter:
     extraExposedTransformPaths: []
     extraUserProperties: []
     clipAnimations: []
-    isReadable: 0
+    isReadable: 1
   meshes:
     lODScreenPercentages: []
     globalScale: 1
@@ -108,10 +115,3 @@ ModelImporter:
   userData: 
   assetBundleName: 
   assetBundleVariant: 
-AssetOrigin:
-  serializedVersion: 1
-  productId: 403436
-  packageName: Ultimate Food Pack - Low Poly 3D Food & Kitchen Assets
-  packageVersion: 1.0
-  assetPath: Assets/Ultimate_Food_Pack/Models/Burger_Bread.obj
-  uploadId: 984106
