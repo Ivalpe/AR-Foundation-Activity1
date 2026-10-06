@@ -24,6 +24,7 @@ public class WaveControl : MonoBehaviour
     public TextMeshProUGUI debugText;
 
     private int currentWave = 0;
+    private int maxWave = 3;
 
     [SerializeField] public ARNavMeshManager navManager;
 
@@ -50,7 +51,7 @@ public class WaveControl : MonoBehaviour
             debugText.text = "NavMesh State: SET AND READY!";
         }
 
-        while (true)
+        do
         {
             
             currentWave++;
@@ -68,6 +69,13 @@ public class WaveControl : MonoBehaviour
             }
 
             yield return new WaitForSeconds(timeBetweenWaves);
+        
+        } while (currentWave < maxWave);
+
+        if (currentWave >= maxWave)
+        {
+            debugText.text = "All waves completed!";
+            Debug.Log("All waves completed!");
         }
     }
 
