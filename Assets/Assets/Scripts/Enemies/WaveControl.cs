@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using Unity.Behavior;
+using TMPro;
 
 public class WaveControl : MonoBehaviour
 {
@@ -18,6 +19,9 @@ public class WaveControl : MonoBehaviour
     public float timeBetweenWaves = 3f;
     public int baseEnemies = 3;
     public int enemiesIncreasePerWave = 2;
+
+    [Header("UI Debug Info")]
+    public TextMeshProUGUI debugText;
 
     private int currentWave = 0;
 
@@ -38,13 +42,17 @@ public class WaveControl : MonoBehaviour
         {
             while (!navManager.HasNavMesh)
             {
+
                 Debug.Log("NAVMESH NOT READY");
-                yield return new WaitForSeconds(0.5f);
+                debugText.text = "NavMesh State: NOT READY";
+                yield return new WaitForSeconds(0.1f);
             }
+            debugText.text = "NavMesh State: SET AND READY!";
         }
 
         while (true)
         {
+            
             currentWave++;
             int countToSpawn = baseEnemies + (currentWave - 1) * enemiesIncreasePerWave;
 
@@ -87,9 +95,18 @@ public class WaveControl : MonoBehaviour
         enemy.tag = "Enemy";
 
         NavMeshAgent agent = enemy.GetComponent<NavMeshAgent>();
-        if(agent != null)
+        if(agent != null && navManager.HasNavMesh)
         {
-            agent.Warp(spawnPos);
+            if (agent.isOnNavMesh)agent.SetDestination(spawnPos);
+            else
+            {
+                NavMeshHit navhit;
+                if (NavMesh.SamplePosition(transform.position, out navhit, 30.0f, NavMesh.AllAreas))
+                {
+                    agent.Warp(navhit.position);
+                }
+                
+            }
         }
 
         Vector3 lookDir = player.position - spawnPos;

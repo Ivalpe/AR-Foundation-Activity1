@@ -1,7 +1,8 @@
-using UnityEngine;
 using System.Collections;
-using UnityEngine.InputSystem;
 using Unity.XR.CoreUtils;
+using UnityEngine;
+using UnityEngine.InputSystem;
+using UnityEngine.UIElements;
 
 public class CannonScript : MonoBehaviour
 {
@@ -18,10 +19,14 @@ public class CannonScript : MonoBehaviour
     public float shootForce = 200.0f;
     public float verticalShootForce = 0.2f;
 
+    //float scaleRatio = 1.0f;
+
     [SerializeField] public int maxAmmo = 10;
     [SerializeField] private bool startOutOfAmmo = false;
     int currentAmmo;
-    
+
+    private ParticleSystem smokeVFX;
+
 
     Vector3 shootDir = Vector3.zero;
     GameObject cannon;
@@ -32,6 +37,8 @@ public class CannonScript : MonoBehaviour
 
     AudioSource cannonSource;
     public AudioClip[] shootSFX;
+    public AudioClip reloadSFX;
+    private float maxReloadPitch = 2.0f;
 
     void Start()
     {
@@ -39,6 +46,9 @@ public class CannonScript : MonoBehaviour
         cannonAnimator = GetComponentInChildren<Animator>();
         cannonSource = GetComponentInChildren<AudioSource>();
         cannon = cannonAnimator.gameObject;
+        smokeVFX = GetComponentInChildren<ParticleSystem>();
+        if (smokeVFX != null) Debug.Log("Smoke Component Found!");
+        else Debug.Log("Smoke Component Not Found");
 
         if (startOutOfAmmo) currentAmmo = 0;
         else currentAmmo = maxAmmo;
@@ -51,6 +61,8 @@ public class CannonScript : MonoBehaviour
         Vector2 screenPos = Vector2.zero;
 
         
+
+
         if (reloadPopUp == null)
         {
             reloadPopUp = GetComponentInChildren<Canvas>(true);
@@ -66,13 +78,23 @@ public class CannonScript : MonoBehaviour
             {
                 if (reloadPopUp && currentAmmo <= 0)
                 {
+                    if (smokeVFX != null && !smokeVFX.isPlaying)
+                    {
+                        smokeVFX.Play();
+                    }
+                    //else Debug.Log("Smoke VFX Particle System not found!");
                     reloadPopUp.gameObject.SetActive(true);
+                }
+                else if(currentAmmo > 0)
+                {
+                    if (smokeVFX != null && smokeVFX.isPlaying) smokeVFX.Stop();
                 }
             }
             else
             {
                 // Too far away -> disable popup
                 if (reloadPopUp) reloadPopUp.gameObject.SetActive(false);
+               
             }
         }
         else
@@ -92,15 +114,24 @@ public class CannonScript : MonoBehaviour
                 if (RayHitVisibleTarget(this.gameObject))
                 {
                     currentAmmo++;
+
+                    //RedimensionCannon();
+                    
+                    cannonSource.pitch = maxReloadPitch - ((maxAmmo - currentAmmo) * 0.5f);
+                    Debug.Log("Reloaded! current pitch: " + cannonSource.pitch);
+                    cannonSource.PlayOneShot(reloadSFX);
                     if (currentAmmo >= maxAmmo)
                     {
                         reloadPopUp.gameObject.SetActive(false);
+                        cannonSource.pitch = 1.0f; //reset pitch
                     }
                 }
-                
-                //Debug.Log("current ammo of " + gameObject.name + ": " + currentAmmo);
 
                 
+                //Debug.Log("current ammo of " + gameObject.name + ": " + currentAmmo);
+                //Debug.Log(gameObject.name + " new scale = " + transform.localScale);
+
+
             }
         }
 
@@ -148,6 +179,7 @@ public class CannonScript : MonoBehaviour
         int randObj = Random.Range(0, projectiles.Length);
         GameObject projectile = Instantiate(projectiles[randObj], shootPoint);
         currentAmmo--;
+        //RedimensionCannon();
 
 
         int randSFX = Random.Range(0, shootSFX.Length);
@@ -192,11 +224,20 @@ public class CannonScript : MonoBehaviour
         //}
 
         //NEW INPUT SYSTEM --> Pointer unifies input from mouse, touch and stylus ! 
+        if (Pointer.current == null) return false;
 
-        if(Pointer.current != null && Pointer.current.press.wasPressedThisFrame)
+        if (Pointer.current.press.wasPressedThisFrame) transform.localScale *= 1.1f;
+        else if (Pointer.current.press.wasReleasedThisFrame) transform.localScale /= 1.1F;
+
+        if(Pointer.current.press.wasPressedThisFrame)
         {
             screenPos = Pointer.current.position.ReadValue();
+            return true;
         }
+
+       
+
+        
 
         return false;
     }
@@ -234,6 +275,7 @@ public class CannonScript : MonoBehaviour
         {
             if (hit.collider.gameObject.transform.IsChildOf(targetGO.transform) && hit.collider.gameObject.GetComponent<Renderer>())
             {
+                Debug.Log("Tapped" + hit.collider.gameObject.name);
                 return true;
             }
             
@@ -249,5 +291,11 @@ public class CannonScript : MonoBehaviour
     public void SetCurrentAmmo(int newAmmo)
     {
         currentAmmo = newAmmo;
+    }
+
+    void RedimensionCannon()
+    {
+        float scaleRatio = (1.0f - ((float)currentAmmo / (float)maxAmmo)) / 2.0f;
+        if (scaleRatio != 0.0f) transform.localScale *= scaleRatio;
     }
 }

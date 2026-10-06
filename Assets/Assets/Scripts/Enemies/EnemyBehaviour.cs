@@ -22,7 +22,7 @@ public class EnemyBehaviour : MonoBehaviour
 
     NavMeshAgent agent;
 
-    public bool airborne = false;
+    
 
     LightEstimationManager lightEstScript;
     [SerializeField] private float lightTreshold = 0.2f;
@@ -57,21 +57,21 @@ public class EnemyBehaviour : MonoBehaviour
         else Debug.Log("FNAF skin not found in " + gameObject.name);
 
 
-        BehaviorGraphAgent behaviourGraph = GetComponentInChildren<BehaviorGraphAgent>();
-        if (behaviourGraph != null)
-        {
-            behaviourGraph.BlackboardReference.SetVariableValue("Target", target);
-            GameObject targetVar;
-            behaviourGraph.BlackboardReference.GetVariableValue("Target", out targetVar);
-            Debug.Log("Behaviour Graph Agent component FOUND, set target to " +  targetVar.name);
+        //BehaviorGraphAgent behaviourGraph = GetComponentInChildren<BehaviorGraphAgent>();
+        //if (behaviourGraph != null)
+        //{
+        //    behaviourGraph.BlackboardReference.SetVariableValue("Target", target);
+        //    GameObject targetVar;
+        //    behaviourGraph.BlackboardReference.GetVariableValue("Target", out targetVar);
+        //    Debug.Log("Behaviour Graph Agent component FOUND, set target to " +  targetVar.name);
             
 
-        }
-        else
-        {
+        //}
+        //else
+        //{
             
-            Debug.Log("Behaviour Graph Agent component not found");
-        }
+        //    Debug.Log("Behaviour Graph Agent component not found");
+        //}
     }
 
     void Update()
@@ -116,17 +116,23 @@ public class EnemyBehaviour : MonoBehaviour
 
         if (animator) animator.SetFloat("speed", speed);
 
-        float lightEst;
+        float? lightEst = 0.5f;
         if(lightEstScript != null)
         {
+            animator.enabled = true;
+            normalSkin.SetActive(true);
+            fnafSkin.SetActive(false);
+            GetComponent<BoxCollider>().enabled = true;
+            GetComponent<CapsuleCollider>().enabled = false;
+
             if (!lightEstScript.brightness.HasValue)
             {
-                lightEst = lightEstScript.testLight;
+                
+                return;
             }
-            else
-            {
-                lightEst = lightEstScript.brightness.Value;
-            }
+            
+            lightEst = lightEstScript.brightness.Value;
+            
 
             if (lightEst <= lightTreshold)
             {
@@ -136,14 +142,7 @@ public class EnemyBehaviour : MonoBehaviour
                 GetComponent<BoxCollider>().enabled = false;
                 GetComponent<CapsuleCollider>().enabled = true;
             }
-            else
-            {
-                animator.enabled = true;
-                normalSkin.SetActive(true);
-                fnafSkin.SetActive(false);
-                GetComponent<BoxCollider>().enabled = true;
-                GetComponent<CapsuleCollider>().enabled = false;
-            }
+            
         }
             
 

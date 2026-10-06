@@ -86,7 +86,7 @@ public class MultipleImagesTrackingManager : MonoBehaviour
         // check if name is null
         if (string.IsNullOrEmpty(imgName)) return;
 
-        Debug.Log($"[AR] Detected image with name: '{imgName}'");
+        //Debug.Log($"[AR] Detected image with name: '{imgName}'");
 
         // if object now spawned --> spawn it
         if (!activeInstances.ContainsKey(trackedImage.trackableId))
