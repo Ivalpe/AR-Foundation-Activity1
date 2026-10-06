@@ -1,8 +1,11 @@
+using NUnit;
 using System;
 using System.Collections;
 using Unity.Behavior;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.SocialPlatforms;
+using UnityEngine.XR.ARSubsystems;
 
 public class EnemyBehaviour : MonoBehaviour
 {
@@ -12,8 +15,9 @@ public class EnemyBehaviour : MonoBehaviour
 
     public AudioClip omnomSFX;
     public AudioClip[] animalSFX;
+    public AudioClip[] fnafSFX;
     AudioClip eatSFX;
-    AudioSource animalSource;
+    AudioSource animalSource, musicSource;
     Animator animator;
     //Rigidbody rb;
     GameObject target;
@@ -21,6 +25,8 @@ public class EnemyBehaviour : MonoBehaviour
     private GameObject normalSkin, fnafSkin;
 
     NavMeshAgent agent;
+    float fadeTimer = 0;
+    public float fadeDuration = 1.0f;
 
     
 
@@ -38,6 +44,7 @@ public class EnemyBehaviour : MonoBehaviour
         //rb = GetComponent<Rigidbody>(); --> rb isn't used with navmesh
         agent = GetComponent<NavMeshAgent>();
         target = GameObject.FindWithTag("MainCamera");
+        musicSource = target.GetComponent<AudioSource>();
         lightEstScript = GameObject.FindAnyObjectByType<LightEstimationManager>();
 
         normalSkin = transform.Find("root").gameObject;
@@ -83,20 +90,20 @@ public class EnemyBehaviour : MonoBehaviour
             NavMeshHit hit;
             if (!agent.isOnNavMesh)
             {
-                if(NavMesh.SamplePosition(transform.position, out hit, 5.0f, NavMesh.AllAreas))
+                if (NavMesh.SamplePosition(transform.position, out hit, 30.0f, NavMesh.AllAreas))
                 {
                     agent.Warp(hit.position);
                 }
-                else if(target != null)
+                else if (target != null)
                 {
-                    Vector3 fallbackPos = new Vector3(transform.position.x, target.transform.position.y - 1.5f, transform.position.z);
-                    agent.enabled = false;
-                    transform.position = fallbackPos;
-                    agent.enabled = true;
+                    //Vector3 fallbackPos = new Vector3(transform.position.x, target.transform.position.y - 1.5f, transform.position.z);
+                    //agent.enabled = false;
+                    //transform.position = fallbackPos;
+                    //agent.enabled = true;
                 }
             }
-            
-            if (target && agent.isOnNavMesh)
+
+            if (target /*&& agent.isOnNavMesh*/)
             {
                 agent.SetDestination(target.transform.position);
 
@@ -119,19 +126,19 @@ public class EnemyBehaviour : MonoBehaviour
         float? lightEst = 0.5f;
         if(lightEstScript != null)
         {
-            animator.enabled = true;
-            normalSkin.SetActive(true);
-            fnafSkin.SetActive(false);
-            GetComponent<BoxCollider>().enabled = true;
-            GetComponent<CapsuleCollider>().enabled = false;
+            
 
             if (!lightEstScript.brightness.HasValue)
             {
-                
-                return;
+
+                lightEst = lightEstScript.testLight;
+            }
+            else
+            {
+                lightEst = lightEstScript.brightness.Value;
             }
             
-            lightEst = lightEstScript.brightness.Value;
+            
             
 
             if (lightEst <= lightTreshold)
@@ -141,6 +148,18 @@ public class EnemyBehaviour : MonoBehaviour
                 fnafSkin.SetActive(true);
                 GetComponent<BoxCollider>().enabled = false;
                 GetComponent<CapsuleCollider>().enabled = true;
+                FadePitch(1.0f, 0.5f);
+                
+            }
+            else
+            {
+                animator.enabled = true;
+                normalSkin.SetActive(true);
+                fnafSkin.SetActive(false);
+                GetComponent<BoxCollider>().enabled = true;
+                GetComponent<CapsuleCollider>().enabled = false;
+                FadePitch(0.5f, 1.0f);
+                
             }
             
         }
@@ -160,8 +179,18 @@ public class EnemyBehaviour : MonoBehaviour
                 currentHealth -= 50f; //2-shot
                 if (animalSFX.Length > 0)
                 {
-                    int rand = UnityEngine.Random.Range(0, animalSFX.Length);
-                    eatSFX = animalSFX[rand];
+                    int rand = 0; 
+                    if (normalSkin.activeSelf)
+                    {
+                        rand = UnityEngine.Random.Range(0, animalSFX.Length);
+                        eatSFX = animalSFX[rand];
+                    }
+                    else if (fnafSkin.activeSelf)
+                    {
+                        UnityEngine.Random.Range(0, fnafSFX.Length);
+                        eatSFX = fnafSFX[rand];
+                    }
+                    //else eatSFX = omnomSFX; //default fallback
                 }
                 else
                 {
@@ -182,7 +211,8 @@ public class EnemyBehaviour : MonoBehaviour
                 //Debug.Log("WARNING: Animator on " + gameObject.name + " not found");
             }
 
-            if(animalSource && eatSFX) animalSource.PlayOneShot(eatSFX);
+            if(animalSource && eatSFX) 
+                animalSource.PlayOneShot(eatSFX);
             collision.gameObject.SetActive(false);
 
             if (currentHealth <= 0)
@@ -207,5 +237,36 @@ public class EnemyBehaviour : MonoBehaviour
     private void OnDestroy()
     {
         StopAllCoroutines();
+    }
+
+    void FadePitch(float initialVal, float finalVal)
+    {
+        //fadeTimer += Time.deltaTime;
+
+        //if (fadeDuration <= 0) fadeDuration = 0.01f;
+
+        //float t = Mathf.Min((fadeTimer / fadeDuration), 1.0f);
+        //float newPitch = finalVal;
+        //if (t >= finalVal)
+        //{
+        //    fadeTimer = 0;
+        //}
+        //else
+        //{
+        //    newPitch = initialVal + t * finalVal;
+        //    Debug.Log("new pitch: " + newPitch);
+        // 
+        //}
+        //WHAT IS HAPPENING HERE (´T o T`)
+
+        //if(musicSource && musicSource.isPlaying)
+        //{
+        //    musicSource.pitch = newPitch;
+        //}
+
+        //thank you Mathf library T w T
+        float newPitch = Mathf.MoveTowards(musicSource.pitch, finalVal, fadeDuration * Time.deltaTime);
+        //Debug.Log("new pitch: " + newPitch);
+        musicSource.pitch = newPitch;
     }
 }

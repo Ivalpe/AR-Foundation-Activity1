@@ -1,15 +1,20 @@
+using System.Collections;
 using UnityEngine;
 
 public class LifeManager : MonoBehaviour
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    [SerializeField] int lives = 3;
-    [SerializeField ]GameObject deathScreen;
+    [SerializeField] float hp = 10.0f;
+    [SerializeField] GameObject deathScreen;
     [SerializeField] GameObject winScreen;
+
+    public WaveControl waveScript;
+    public AudioClip oofSFX;
+    AudioSource audioSource;
 
     void Start()
     {
-        
+        audioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -22,12 +27,23 @@ public class LifeManager : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Enemy"))
         {
-            if(lives>0) lives--;
+            if (hp > 0)
+            {
+                TakeDamage(1.0f);
+                
+            }
             else
             {
                 deathScreen.SetActive(true);
             }
             Destroy(collision.gameObject);
         }
+    }
+
+    IEnumerator TakeDamage(float dmg)
+    {
+        hp--;
+        audioSource.PlayOneShot(oofSFX);
+        yield return new WaitForSeconds(1.0f);
     }
 }

@@ -701,7 +701,7 @@ MonoBehaviour:
   shootInterval: 1
   shootDelay: 0
   shootPoint: {fileID: 1627470252383131491}
-  shootForce: 150
+  shootForce: 130.6
   verticalShootForce: 0
   maxAmmo: 8
   startOutOfAmmo: 0

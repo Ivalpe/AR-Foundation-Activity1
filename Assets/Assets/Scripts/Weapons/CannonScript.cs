@@ -20,6 +20,7 @@ public class CannonScript : MonoBehaviour
     public float verticalShootForce = 0.2f;
 
     //float scaleRatio = 1.0f;
+    Vector3 ogScale; 
 
     [SerializeField] public int maxAmmo = 10;
     [SerializeField] private bool startOutOfAmmo = false;
@@ -55,6 +56,8 @@ public class CannonScript : MonoBehaviour
 
         if (startOutOfAmmo) currentAmmo = 0;
         else currentAmmo = maxAmmo;
+
+        ogScale = transform.localScale;
     }
 
     // Update is called once per frame
@@ -114,19 +117,20 @@ public class CannonScript : MonoBehaviour
         {
             if (ScreenClickOrTap(ref screenPos) && currentAmmo < maxAmmo)
             {
-                if (RayHitVisibleTarget(this.gameObject))
+                if (RayHitVisibleTarget(this.gameObject, screenPos))
                 {
                     currentAmmo++;
 
                     //RedimensionCannon();
-                    
-                    cannonSource.pitch = maxReloadPitch - ((maxAmmo - currentAmmo) * 0.5f);
-                    Debug.Log("Reloaded! current pitch: " + cannonSource.pitch);
+
+                    float progress = (float)currentAmmo / maxAmmo;
+                    cannonSource.pitch = Mathf.Lerp(0.8f, maxReloadPitch, progress);
                     cannonSource.PlayOneShot(reloadSFX);
+
                     if (currentAmmo >= maxAmmo)
                     {
                         reloadPopUp.gameObject.SetActive(false);
-                        cannonSource.pitch = 1.0f; //reset pitch
+                        cannonSource.pitch = 1.0f;
                     }
                 }
 
@@ -230,7 +234,7 @@ public class CannonScript : MonoBehaviour
         if (Pointer.current == null) return false;
 
         if (Pointer.current.press.wasPressedThisFrame) transform.localScale *= 1.1f;
-        else if (Pointer.current.press.wasReleasedThisFrame) transform.localScale /= 1.1F;
+        else if (Pointer.current.press.wasReleasedThisFrame) transform.localScale = ogScale;
 
         if(Pointer.current.press.wasPressedThisFrame)
         {
@@ -269,10 +273,10 @@ public class CannonScript : MonoBehaviour
         return isVisible;
     }
 
-    public bool RayHitVisibleTarget(GameObject targetGO)
+    public bool RayHitVisibleTarget(GameObject targetGO, Vector2 screenPos)
     {
-        //Viewport coordinates are normalized and relative to the camera. The bottom-left of the camera is (0,0); the top-right is (1,1).
-        Ray ray = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0.0f));
+        
+        Ray ray = Camera.main.ScreenPointToRay(screenPos);
         RaycastHit hit;
         if(Physics.Raycast(ray, out hit, maxCamDist))
         {

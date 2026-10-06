@@ -44,7 +44,7 @@ public class LightEstimationManager : MonoBehaviour
         //Debug.Log("Current Light Estimation: " + args.lightEstimation.averageBrightness);
         if (args.lightEstimation.averageBrightness.HasValue)
         {
-            brightness = args.lightEstimation.averageBrightness.Value;
+            brightness = args.lightEstimation.averageBrightness;
             m_Light.intensity = brightness.Value;  
         }
         else
@@ -55,7 +55,7 @@ public class LightEstimationManager : MonoBehaviour
 
         if (args.lightEstimation.averageColorTemperature.HasValue)
         {
-            colorTemp = args.lightEstimation.averageColorTemperature.Value;
+            colorTemp = args.lightEstimation.averageColorTemperature;
             m_Light.colorTemperature = colorTemp.Value;
         }
         else

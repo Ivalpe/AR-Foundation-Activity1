@@ -413,6 +413,12 @@ MonoBehaviour:
   - {fileID: 8300000, guid: ee16ea97f0401ee4ea401f7daacb9e27, type: 3}
   - {fileID: 8300000, guid: 77eb7731a220ff1409cff677601d8077, type: 3}
   - {fileID: 8300000, guid: e45caaf71de2c2645b94b15c372b4047, type: 3}
+  fnafSFX:
+  - {fileID: 8300000, guid: ee91e350c7169054fb33f56c73f372fb, type: 3}
+  - {fileID: 8300000, guid: fb5c35619e59164418b580da1e529955, type: 3}
+  - {fileID: 8300000, guid: d6ef86094e4feb44194fb2775863cdae, type: 3}
+  - {fileID: 8300000, guid: 9ca8bf0c02216ad429dd01c9b4196f25, type: 3}
+  fadeDuration: 1
   lightTreshold: 0.2
 --- !u!82 &651002463982787114
 AudioSource:

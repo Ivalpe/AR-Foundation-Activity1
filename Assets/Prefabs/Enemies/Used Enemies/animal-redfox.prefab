@@ -240,6 +240,10 @@ MonoBehaviour:
   - {fileID: 8300000, guid: e86e513d6763d3a478430949ad40889a, type: 3}
   - {fileID: 8300000, guid: 6a240341419365e4a9057b5d75f6c820, type: 3}
   - {fileID: 8300000, guid: 8486f31711fb05d4cb962d0320214eef, type: 3}
+  fnafSFX:
+  - {fileID: 8300000, guid: f448be01f566a3443a98f790b48295ef, type: 3}
+  - {fileID: 8300000, guid: 470d9be7a8c16574182b53c227ed86cc, type: 3}
+  fadeDuration: 1
   lightTreshold: 0.2
 --- !u!54 &6820689667833340876
 Rigidbody:
