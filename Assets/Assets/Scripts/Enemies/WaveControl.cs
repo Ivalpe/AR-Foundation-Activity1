@@ -72,7 +72,7 @@ public class WaveControl : MonoBehaviour
         
         } while (currentWave < maxWave);
 
-        if (currentWave >= maxWave)
+        if (currentWave >= maxWave && GameObject.FindGameObjectsWithTag("Enemy").Length == 0)
         {
             debugText.text = "All waves completed!";
             Debug.Log("All waves completed!");
