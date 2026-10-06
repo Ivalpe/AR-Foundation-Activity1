@@ -12,11 +12,19 @@ public class ARNavMeshManager : MonoBehaviour
 
     public bool HasNavMesh { get; private set; } = false;
 
+
     private void Awake()
     {
         if (navMeshSurface == null)
             navMeshSurface = GetComponent<NavMeshSurface>();
+        
     }
+    //public void GetNavy(int y)
+    //{
+    //    y = (int)navMeshSurface.transform.position.y;
+    //    Debug.Log("AA"+(int)navMeshSurface.transform.position.y);
+
+    //}
 
     private void OnEnable()
     {
@@ -40,7 +48,26 @@ public class ARNavMeshManager : MonoBehaviour
                 {
                     //build nav mesh
                     navMeshSurface.BuildNavMesh();
+
+                    //if (navMeshSurface.navMeshData != null)
+                    //{
+                    //    HasNavMesh = true;
+                    //}
                 }
+                //else
+                //{
+
+                //    AsyncOperation asyncUpdate = navMeshSurface.UpdateNavMesh(navMeshSurface.navMeshData);
+
+
+                //    while (!asyncUpdate.isDone)
+                //    {
+                //        yield return null;
+                //    }
+
+                //    HasNavMesh = true;
+                //}
+
                 else
                 {
                     //update nav mesh with new detected planes
@@ -48,6 +75,7 @@ public class ARNavMeshManager : MonoBehaviour
                 }
                 //communicate that nav mesh has been created
                 HasNavMesh = true;
+
             }
 
             yield return new WaitForSeconds(updateInterval);

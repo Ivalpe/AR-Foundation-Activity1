@@ -40,6 +40,11 @@ public class LifeManager : MonoBehaviour
         }
     }
 
+    private void OnWin()
+    {
+        if (waveScript.win == true) winScreen.SetActive(true);
+    }
+
     IEnumerator TakeDamage(float dmg)
     {
         hp--;

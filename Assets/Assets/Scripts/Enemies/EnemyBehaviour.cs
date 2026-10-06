@@ -25,7 +25,7 @@ public class EnemyBehaviour : MonoBehaviour
     private GameObject normalSkin, fnafSkin;
 
     NavMeshAgent agent;
-    float fadeTimer = 0;
+    //float fadeTimer = 0;
     public float fadeDuration = 1.0f;
 
     
@@ -103,7 +103,8 @@ public class EnemyBehaviour : MonoBehaviour
                 }
             }
 
-            if (target /*&& agent.isOnNavMesh*/)
+            if (target && agent.isOnNavMesh) /*test*/
+
             {
                 agent.SetDestination(target.transform.position);
 

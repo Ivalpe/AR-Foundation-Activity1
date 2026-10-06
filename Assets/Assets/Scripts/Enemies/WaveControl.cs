@@ -25,6 +25,7 @@ public class WaveControl : MonoBehaviour
 
     private int currentWave = 0;
     private int maxWave = 3;
+    public bool win = false;
 
     [SerializeField] public ARNavMeshManager navManager;
 
@@ -32,7 +33,7 @@ public class WaveControl : MonoBehaviour
     {
         if (player == null && Camera.main != null)
             player = Camera.main.transform;
-
+        win = false;
         StartCoroutine(WaveLoop());
     }
 
@@ -49,40 +50,47 @@ public class WaveControl : MonoBehaviour
                 yield return new WaitForSeconds(0.1f);
             }
             debugText.text = "NavMesh State: SET AND READY!";
+            Debug.Log("NAVMESH  READY");
         }
 
-        do
-        {
+            do
+            {
             
-            currentWave++;
-            int countToSpawn = baseEnemies + (currentWave - 1) * enemiesIncreasePerWave;
+                currentWave++;
+                int countToSpawn = baseEnemies + (currentWave - 1) * enemiesIncreasePerWave;
 
-            for (int i = 0; i < countToSpawn; i++)
-            {
-                SpawnEnemy();
-                yield return new WaitForSeconds(0.6f);
-            }
+                for (int i = 0; i < countToSpawn; i++)
+                {
+                    SpawnEnemy();
+                    yield return new WaitForSeconds(0.6f);
+                }
 
-            while (GameObject.FindGameObjectsWithTag("Enemy").Length > 0)
-            {
-                yield return new WaitForSeconds(0.5f);
-            }
+                while (GameObject.FindGameObjectsWithTag("Enemy").Length > 0)
+                {
+                    yield return new WaitForSeconds(0.5f);
+                }
 
-            yield return new WaitForSeconds(timeBetweenWaves);
+                yield return new WaitForSeconds(timeBetweenWaves);
         
-        } while (currentWave < maxWave);
+            } while (currentWave < maxWave);
 
-        if (currentWave >= maxWave && GameObject.FindGameObjectsWithTag("Enemy").Length == 0)
-        {
-            debugText.text = "All waves completed!";
-            Debug.Log("All waves completed!");
-        }
+            if (currentWave >= maxWave && GameObject.FindGameObjectsWithTag("Enemy").Length == 0)
+            {
+                debugText.text = "All waves completed!";
+                Debug.Log("All waves completed!");
+                win = true;
+            }
+
     }
 
     private void SpawnEnemy()
     {
         Vector2 circle = Random.insideUnitCircle.normalized * Random.Range(minDistance, maxDistance);
+        //int y=1;
+        //navManager.GetNavy(y);
+       // Debug.Log("navmesh y:"+y);
         Vector3 spawnPos = new Vector3(player.position.x + circle.x, player.position.y, player.position.z + circle.y);
+        
 
         NavMeshHit hit;
         //project position to navmesh floor
