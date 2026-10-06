@@ -100,11 +100,11 @@ public class MultipleImagesTrackingManager : MonoBehaviour
                 instance.transform.localRotation = Quaternion.identity;
 
                 activeInstances[trackedImage.trackableId] = instance;
-                Debug.Log($"[AR] Successfully spawned '{instance.name}' for image '{imgName}'");
+                //Debug.Log($"[AR] Successfully spawned '{instance.name}' for image '{imgName}'");
             }
             else
             {
-                Debug.LogWarning($"[AR] Found image '{imgName}', but no prefab named '{imgName}' is in Prefabs To Spawn list!");
+                //Debug.LogWarning($"[AR] Found image '{imgName}', but no prefab named '{imgName}' is in Prefabs To Spawn list!");
             }
         }
 

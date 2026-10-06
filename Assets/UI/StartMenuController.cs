@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.XR.ARFoundation; 
 
 public class StartMenuController : MonoBehaviour
@@ -10,6 +11,9 @@ public class StartMenuController : MonoBehaviour
     [Header("AR Components")]
     
     [SerializeField] private ARSession arSession;
+
+    [Header("Scene")]
+    public Object gameplayScene;
 
     private void Start()
     {
@@ -36,7 +40,8 @@ public class StartMenuController : MonoBehaviour
         {
             startMenuCanvasGroup.alpha = 0f;          
             startMenuCanvasGroup.interactable = false;  
-            startMenuCanvasGroup.blocksRaycasts = false; 
+            startMenuCanvasGroup.blocksRaycasts = false;
+            if(gameplayScene != null) SceneManager.LoadScene(gameplayScene.name);
         }
         else
         {

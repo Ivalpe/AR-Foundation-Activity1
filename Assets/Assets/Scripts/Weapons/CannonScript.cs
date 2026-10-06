@@ -47,7 +47,10 @@ public class CannonScript : MonoBehaviour
         cannonSource = GetComponentInChildren<AudioSource>();
         cannon = cannonAnimator.gameObject;
         smokeVFX = GetComponentInChildren<ParticleSystem>();
-        if (smokeVFX != null) Debug.Log("Smoke Component Found!");
+        if (smokeVFX != null)
+        {
+            //Debug.Log("Smoke Component Found!");
+        }
         else Debug.Log("Smoke Component Not Found");
 
         if (startOutOfAmmo) currentAmmo = 0;
