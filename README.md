@@ -1,7 +1,8 @@
 # Buffet Towers
 ## AR Tower Defence
 
-[https://github.com/Ivalpe/AR-Foundation-Activity1/blob/main/Assets/UI/Textures/logoAR.png]
+![logo](https://github.com/Ivalpe/AR-Foundation-Activity1/blob/main/Assets/UI/Textures/logoAR.png)
+
 ---
 ## Github
 https://github.com/Ivalpe/AR-Foundation-Activity1
