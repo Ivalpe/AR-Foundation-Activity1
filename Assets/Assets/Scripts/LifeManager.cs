@@ -20,16 +20,18 @@ public class LifeManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.CompareTag("Enemy"))
+        Debug.Log("oncollisionentrer");
+        if (  /*collision.gameObject.tag==("Enemy")*/       collision.gameObject.CompareTag("Enemy"))
         {
+           
             if (hp > 0)
             {
                 TakeDamage(1.0f);
+                Debug.Log("-1 de vida"+ hp);
                 
             }
             else
