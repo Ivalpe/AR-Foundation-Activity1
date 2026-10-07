@@ -21,29 +21,29 @@ MonoBehaviour:
       m_GuidLow: 4940855867826817922
       m_GuidHigh: 4172231466806497173
     m_SerializedTextureGuid:
-      m_GuidLow: 15367592024409789327
-      m_GuidHigh: 3272997426173756456
-    m_Size: {x: 0.1, y: 0.1}
+      m_GuidLow: 6162287700096322761
+      m_GuidHigh: 3824251309074773672
+    m_Size: {x: 0.1, y: 0.09531025}
     m_SpecifySize: 1
     m_Name: Ballista
-    m_Texture: {fileID: 2800000, guid: 7412538fa786d54428c4da69d1056c2d, type: 3}
+    m_Texture: {fileID: 2800000, guid: 98000cc9d8035584a87639c94d781235, type: 3}
   - m_SerializedGuid:
       m_GuidLow: 5571359722778738221
       m_GuidHigh: 10152927113868414602
     m_SerializedTextureGuid:
-      m_GuidLow: 10048819244353018706
-      m_GuidHigh: 7798362018125729032
-    m_Size: {x: 0.1, y: 0.086903304}
+      m_GuidLow: 9791977862813501640
+      m_GuidHigh: 15488430895727245320
+    m_Size: {x: 0.1, y: 0.099919096}
     m_SpecifySize: 1
     m_Name: Cannon
-    m_Texture: {fileID: 2800000, guid: 9fc55b5293dc8b74084d4820f058396c, type: 3}
+    m_Texture: {fileID: 2800000, guid: 717cc8c817fc87e408f801a4d6f5f1d6, type: 3}
   - m_SerializedGuid:
       m_GuidLow: 4709646830510050463
       m_GuidHigh: 5848372932694761603
     m_SerializedTextureGuid:
-      m_GuidLow: 6905286849973513008
-      m_GuidHigh: 9819181432384299145
-    m_Size: {x: 0.1, y: 0.1}
+      m_GuidLow: 8233806978055939750
+      m_GuidHigh: 11256221333804487657
+    m_Size: {x: 0.1, y: 0.099919096}
     m_SpecifySize: 1
     m_Name: Catapult
-    m_Texture: {fileID: 2800000, guid: e4d8eb3081cd5fd489a0600e7dbd4488, type: 3}
+    m_Texture: {fileID: 2800000, guid: 6c2826a65bd27244e9139742aa21369c, type: 3}

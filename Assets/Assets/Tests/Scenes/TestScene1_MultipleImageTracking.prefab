@@ -267,7 +267,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c39bb24e2bd7a482ca08117fb44b8e44, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Unity.XR.Simulation::UnityEngine.XR.Simulation.SimulatedTrackedImage
-  m_Image: {fileID: 2800000, guid: e4d8eb3081cd5fd489a0600e7dbd4488, type: 3}
+  m_Image: {fileID: 2800000, guid: 6c2826a65bd27244e9139742aa21369c, type: 3}
   m_ImagePhysicalSizeMeters: {x: 0.1, y: 0.1}
   m_QuadMesh: {fileID: 0}
   m_QuadMaterial: {fileID: 0}
@@ -871,7 +871,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c39bb24e2bd7a482ca08117fb44b8e44, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Unity.XR.Simulation::UnityEngine.XR.Simulation.SimulatedTrackedImage
-  m_Image: {fileID: 2800000, guid: 9fc55b5293dc8b74084d4820f058396c, type: 3}
+  m_Image: {fileID: 2800000, guid: 717cc8c817fc87e408f801a4d6f5f1d6, type: 3}
   m_ImagePhysicalSizeMeters: {x: 0.1, y: 0.1}
   m_QuadMesh: {fileID: 0}
   m_QuadMaterial: {fileID: 0}
@@ -1414,7 +1414,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c39bb24e2bd7a482ca08117fb44b8e44, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Unity.XR.Simulation::UnityEngine.XR.Simulation.SimulatedTrackedImage
-  m_Image: {fileID: 2800000, guid: 7412538fa786d54428c4da69d1056c2d, type: 3}
+  m_Image: {fileID: 2800000, guid: 98000cc9d8035584a87639c94d781235, type: 3}
   m_ImagePhysicalSizeMeters: {x: 0.1, y: 0.1}
   m_QuadMesh: {fileID: 0}
   m_QuadMaterial: {fileID: 0}
