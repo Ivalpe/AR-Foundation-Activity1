@@ -10,7 +10,7 @@ https://github.com/Ivalpe/AR-Foundation-Activity1
 ## Descripción
 ---
 Buffet Towers Game where different animals slowly approach you, and you must throw different food at them so they leave before attacking you. You must defend yourself and survive X ambushes, if 3 animals reach you before that you’ll lose. Each animal has it's own favourite food so place each type of tower strategically. There are three types a canon that shoots sweets, a crossbow that shoots meats and a catapult that shoots vegetables. Each tower also has limited ammo that you have to recharge by clicking the tower once you are close to it (10,8,4).
-# Animal food preferences: 
+### Animal food preferences: 
 * Chicken → sweets
 * Fox → fruit & vegetables
 * Bear → various meat products
