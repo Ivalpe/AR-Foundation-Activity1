@@ -1,6 +1,7 @@
 using UnityEngine;
 using Unity.AI.Navigation;
 using System.Collections;
+using UnityEngine.XR.ARFoundation;
 
 public class ARNavMeshManager : MonoBehaviour
 {
@@ -17,7 +18,7 @@ public class ARNavMeshManager : MonoBehaviour
     {
         if (navMeshSurface == null)
             navMeshSurface = GetComponent<NavMeshSurface>();
-        
+
     }
     //public void GetNavy(int y)
     //{

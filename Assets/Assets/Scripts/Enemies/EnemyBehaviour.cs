@@ -90,7 +90,7 @@ public class EnemyBehaviour : MonoBehaviour
             NavMeshHit hit;
             if (!agent.isOnNavMesh)
             {
-                if (NavMesh.SamplePosition(transform.position, out hit, 30.0f, NavMesh.AllAreas))
+                if (NavMesh.SamplePosition(transform.position, out hit, 3.0f, NavMesh.AllAreas))
                 {
                     agent.Warp(hit.position);
                 }
@@ -103,10 +103,12 @@ public class EnemyBehaviour : MonoBehaviour
                 }
             }
 
-            if (target && agent.isOnNavMesh) /*test*/
+            if (target && agent.isOnNavMesh)
 
             {
-                agent.SetDestination(target.transform.position);
+                // use target X and Z but keep the enemy's current Y floor height (so they dont levitate)
+                Vector3 flatTarget = new Vector3(target.transform.position.x, transform.position.y, target.transform.position.z);
+                agent.SetDestination(flatTarget);
 
             }
             speed = Vector3.Magnitude(agent.velocity);
