@@ -30,6 +30,7 @@ Buffet Towers Game where different animals slowly approach you, and you must thr
 
 ## External assets usage
 ---
-* Animal models
+* Animal models https://kenney.nl/assets/cube-pets
+* Tower models https://kenney.nl/assets/tower-defense-kit
 * FNAF models
 * Sound effects
