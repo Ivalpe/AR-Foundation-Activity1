@@ -16,17 +16,25 @@ public class EnemyBehaviour : MonoBehaviour
     public AudioClip omnomSFX;
     public AudioClip[] animalSFX;
     public AudioClip[] fnafSFX;
+
+    public AudioClip[] stepSFX;
     AudioClip eatSFX;
     AudioSource animalSource, musicSource;
     Animator animator;
     //Rigidbody rb;
-    GameObject target;
+    GameObject target; //(camera)
+    
 
     private GameObject normalSkin, fnafSkin;
 
     NavMeshAgent agent;
     //float fadeTimer = 0;
     public float fadeDuration = 1.0f;
+
+    public float stepIntervalMult = 0.05f;
+
+    float stepTimer = 0;
+
 
     
 
@@ -44,8 +52,10 @@ public class EnemyBehaviour : MonoBehaviour
         //rb = GetComponent<Rigidbody>(); --> rb isn't used with navmesh
         agent = GetComponent<NavMeshAgent>();
         target = GameObject.FindWithTag("MainCamera");
-        musicSource = target.GetComponent<AudioSource>();
+        musicSource = GameObject.FindWithTag("BGM").GetComponent<AudioSource>();
         lightEstScript = GameObject.FindAnyObjectByType<LightEstimationManager>();
+        
+        
 
         normalSkin = transform.Find("root").gameObject;
         if (normalSkin)
@@ -63,27 +73,16 @@ public class EnemyBehaviour : MonoBehaviour
         }
         else Debug.Log("FNAF skin not found in " + gameObject.name);
 
-
-        //BehaviorGraphAgent behaviourGraph = GetComponentInChildren<BehaviorGraphAgent>();
-        //if (behaviourGraph != null)
-        //{
-        //    behaviourGraph.BlackboardReference.SetVariableValue("Target", target);
-        //    GameObject targetVar;
-        //    behaviourGraph.BlackboardReference.GetVariableValue("Target", out targetVar);
-        //    Debug.Log("Behaviour Graph Agent component FOUND, set target to " +  targetVar.name);
-            
-
-        //}
-        //else
-        //{
-            
-        //    Debug.Log("Behaviour Graph Agent component not found");
-        //}
     }
 
     void Update()
     {
         //if (lightEstScript) Debug.Log("Light object: " + lightEstScript.gameObject.name);
+
+        //make the collider move with the player (aka the camera) but not rotate
+
+        
+        
 
         if (agent && agent.enabled)
         {
@@ -113,6 +112,23 @@ public class EnemyBehaviour : MonoBehaviour
             }
             speed = Vector3.Magnitude(agent.velocity);
 
+
+            //STEP SFX
+            if(speed > 0) {
+                stepTimer += Time.deltaTime;
+                float stepInt = 0.5f;
+
+                if(stepTimer >= stepInt)
+                {
+                    stepTimer = 0;
+                    animalSource.volume = UnityEngine.Random.Range(0.4f, 0.8f);
+                    animalSource.pitch = UnityEngine.Random.Range(0.8f, 1.2f);
+                    animalSource.PlayOneShot(stepSFX[UnityEngine.Random.Range(0, stepSFX.Length)]);
+                    animalSource.pitch = 1f;
+                    animalSource.volume = 1f;
+                }
+                //Debug.Log($"{gameObject.name} is walking with a {stepInt} step time interval");
+            }
             
         }
         else
@@ -149,8 +165,8 @@ public class EnemyBehaviour : MonoBehaviour
                 animator.enabled = false;
                 normalSkin.SetActive(false);
                 fnafSkin.SetActive(true);
-                GetComponent<BoxCollider>().enabled = false;
-                GetComponent<CapsuleCollider>().enabled = true;
+                //GetComponent<BoxCollider>().enabled = false;
+                //GetComponent<CapsuleCollider>().enabled = true;
                 FadePitch(1.0f, 0.5f);
                 
             }
@@ -159,8 +175,8 @@ public class EnemyBehaviour : MonoBehaviour
                 animator.enabled = true;
                 normalSkin.SetActive(true);
                 fnafSkin.SetActive(false);
-                GetComponent<BoxCollider>().enabled = true;
-                GetComponent<CapsuleCollider>().enabled = false;
+                //GetComponent<BoxCollider>().enabled = true;
+                //GetComponent<CapsuleCollider>().enabled = false;
                 FadePitch(0.5f, 1.0f);
                 
             }
@@ -236,6 +252,8 @@ public class EnemyBehaviour : MonoBehaviour
       
         Destroy(gameObject);
     }
+
+
 
     private void OnDestroy()
     {

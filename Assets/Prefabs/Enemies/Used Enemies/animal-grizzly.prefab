@@ -321,7 +321,6 @@ GameObject:
   - component: {fileID: 651002463982787114}
   - component: {fileID: 2588578274702911947}
   - component: {fileID: 1668833375267189657}
-  - component: {fileID: 6762485919969747069}
   m_Layer: 0
   m_Name: animal-grizzly
   m_TagString: Enemy
@@ -393,7 +392,7 @@ Rigidbody:
   m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 2
 --- !u!114 &2260179672313259687
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -418,8 +417,16 @@ MonoBehaviour:
   - {fileID: 8300000, guid: fb5c35619e59164418b580da1e529955, type: 3}
   - {fileID: 8300000, guid: d6ef86094e4feb44194fb2775863cdae, type: 3}
   - {fileID: 8300000, guid: 9ca8bf0c02216ad429dd01c9b4196f25, type: 3}
+  stepSFX:
+  - {fileID: 8300000, guid: 7da04140f200fde438410ced569e8213, type: 3}
+  - {fileID: 8300000, guid: 2748054b6b0d37045bbccb67507c4d83, type: 3}
+  - {fileID: 8300000, guid: 655c891ca2a3d5b40bc5ab204621896f, type: 3}
+  - {fileID: 8300000, guid: f9c707515ace09e45bd5c9997070036c, type: 3}
+  - {fileID: 8300000, guid: 1e5b7d1c83aee7045b5772580a836cf3, type: 3}
+  - {fileID: 8300000, guid: 5af86029d467b9c49bb105bad85b7b2a, type: 3}
   fadeDuration: 1
-  lightTreshold: 0.2
+  stepIntervalMult: 0.05
+  lightTreshold: 0.3
 --- !u!82 &651002463982787114
 AudioSource:
   m_ObjectHideFlags: 0
@@ -441,8 +448,8 @@ AudioSource:
   SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 1
-  MinDistance: 1
-  MaxDistance: 5
+  MinDistance: 0.3
+  MaxDistance: 3
   Pan2D: 0
   rolloffMode: 0
   BypassEffects: 0
@@ -526,7 +533,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 3021967409105444121}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.75
+  m_Radius: 0.5
   m_Speed: 0.3
   m_Acceleration: 4
   avoidancePriority: 50
@@ -561,29 +568,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!136 &6762485919969747069
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3021967409105444121}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.67
-  m_Height: 1.98
-  m_Direction: 1
-  m_Center: {x: 0, y: 0.6, z: 0}
 --- !u!1 &3528593302925464302
 GameObject:
   m_ObjectHideFlags: 0

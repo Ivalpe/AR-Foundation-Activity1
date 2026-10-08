@@ -143,7 +143,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.5, y: 0.20768, z: -0.11769}
-  m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
+  m_LocalScale: {x: 0.08, y: 0.08, z: 0.08}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 1029170968192373263}
@@ -252,7 +252,7 @@ MonoBehaviour:
   shootInterval: 2
   shootDelay: 0
   shootPoint: {fileID: 7513277850942499681}
-  shootForce: 185.2
+  shootForce: 80
   verticalShootForce: 0.2
   maxAmmo: 10
   startOutOfAmmo: 0

@@ -195,7 +195,6 @@ GameObject:
   - component: {fileID: 6836750960565579284}
   - component: {fileID: 7737590081048601527}
   - component: {fileID: 1833586021480876913}
-  - component: {fileID: 1516402182669031810}
   m_Layer: 0
   m_Name: animal-redfox
   m_TagString: Enemy
@@ -243,8 +242,16 @@ MonoBehaviour:
   fnafSFX:
   - {fileID: 8300000, guid: f448be01f566a3443a98f790b48295ef, type: 3}
   - {fileID: 8300000, guid: 470d9be7a8c16574182b53c227ed86cc, type: 3}
+  stepSFX:
+  - {fileID: 8300000, guid: 9a30499e47789df48aa9bdb1ec7b0982, type: 3}
+  - {fileID: 8300000, guid: 1d7e7e6569aab5a45a837f470eaddc8b, type: 3}
+  - {fileID: 8300000, guid: 31be579b280d0bc459635877e8c45aee, type: 3}
+  - {fileID: 8300000, guid: c3f3efc1106f84643a38bd21f6826aaf, type: 3}
+  - {fileID: 8300000, guid: 2de8329adc6f9b944a5ab0875fb59924, type: 3}
+  - {fileID: 8300000, guid: f39f1d43c5b9fbf449e7b39d056e5aad, type: 3}
   fadeDuration: 1
-  lightTreshold: 0.2
+  stepIntervalMult: 0.05
+  lightTreshold: 0.3
 --- !u!54 &6820689667833340876
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -271,7 +278,7 @@ Rigidbody:
   m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 2
 --- !u!65 &152113671723418284
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -314,8 +321,8 @@ AudioSource:
   SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 1
-  MinDistance: 1
-  MaxDistance: 5
+  MinDistance: 0.3
+  MaxDistance: 3
   Pan2D: 0
   rolloffMode: 0
   BypassEffects: 0
@@ -421,7 +428,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 614310587644262544}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.75
+  m_Radius: 0.5
   m_Speed: 0.5
   m_Acceleration: 4
   avoidancePriority: 50
@@ -434,29 +441,6 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!136 &1516402182669031810
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 614310587644262544}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.67
-  m_Height: 1.98
-  m_Direction: 1
-  m_Center: {x: 0, y: 0.6, z: 0}
 --- !u!1 &621664717214817470
 GameObject:
   m_ObjectHideFlags: 0

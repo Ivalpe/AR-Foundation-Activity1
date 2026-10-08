@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.AI;
 using Unity.Behavior;
 using TMPro;
+using UnityEngine.InputSystem;
 
 public class WaveControl : MonoBehaviour
 {
@@ -23,18 +24,60 @@ public class WaveControl : MonoBehaviour
     [Header("UI Debug Info")]
     public TextMeshProUGUI debugText;
 
+    public UIController uiScript;
+
     private int currentWave = 0;
     private int maxWave = 3;
     public bool win = false;
+   
 
     [SerializeField] public ARNavMeshManager navManager;
+    
 
     private void Start()
     {
+
         if (player == null && Camera.main != null)
             player = Camera.main.transform;
         win = false;
         StartCoroutine(WaveLoop());
+    }
+
+    void Update()
+    {
+        if (Keyboard.current.f2Key.wasPressedThisFrame)
+        {
+            win = true;
+
+        }
+           
+
+        if (win)
+        {
+            win = false;
+            if(currentWave <= maxWave)
+            {
+                currentWave = maxWave + 1;
+            }
+
+            GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+
+            if (enemies.Length > 0)
+            {
+                foreach(GameObject e in enemies)
+                {
+                    Destroy(e);
+                }
+            }
+
+            if(uiScript)
+            {
+                uiScript.winScreen.SetActive(true);
+                uiScript.audioSource.pitch = 1.0f;
+                uiScript.audioSource.PlayOneShot(uiScript.yaySFX);
+            }
+              
+        }
     }
 
     private IEnumerator WaveLoop()

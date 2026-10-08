@@ -11,6 +11,8 @@ TagManager:
   - Fruit
   - Sweet
   - Weapon
+  - FxTemporaire
+  - BGM
   layers:
   - Default
   - TransparentFX

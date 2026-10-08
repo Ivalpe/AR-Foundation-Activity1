@@ -15,7 +15,6 @@ GameObject:
   - component: {fileID: 8925027324764884597}
   - component: {fileID: 264609306937141934}
   - component: {fileID: 7144814364820169376}
-  - component: {fileID: 7343621978613046743}
   m_Layer: 0
   m_Name: animal-chick
   m_TagString: Enemy
@@ -87,7 +86,7 @@ Rigidbody:
   m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 2
 --- !u!114 &8514029074561439474
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -112,8 +111,16 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 00240af3c5c6a034e95b33da77275dd5, type: 3}
   - {fileID: 8300000, guid: 911824601062eda44865d48db3386190, type: 3}
   - {fileID: 8300000, guid: 1abd3410a55771e4a95c12404eab942f, type: 3}
+  stepSFX:
+  - {fileID: 8300000, guid: 0d8bec8a34c5c9a4f97b279e1f6cc7e0, type: 3}
+  - {fileID: 8300000, guid: 7b17f1cec74159341acca5e74a1bcf0d, type: 3}
+  - {fileID: 8300000, guid: a5374297e760b774f8e2531500f41947, type: 3}
+  - {fileID: 8300000, guid: 6a895b8f487d1f74da2a2f08f81d7ed9, type: 3}
+  - {fileID: 8300000, guid: 7c34de6b67299764ca58c6aceaf8b097, type: 3}
+  - {fileID: 8300000, guid: 5dfd949d023bde047b5f9003660a63d7, type: 3}
   fadeDuration: 1
-  lightTreshold: 0.2
+  stepIntervalMult: 0.05
+  lightTreshold: 0.3
 --- !u!95 &8925027324764884597
 Animator:
   serializedVersion: 7
@@ -157,8 +164,8 @@ AudioSource:
   SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 1
-  MinDistance: 1
-  MaxDistance: 5
+  MinDistance: 0.3
+  MaxDistance: 3
   Pan2D: 0
   rolloffMode: 0
   BypassEffects: 0
@@ -242,7 +249,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 199809141171364430}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.75
+  m_Radius: 0.5
   m_Speed: 0.7
   m_Acceleration: 4
   avoidancePriority: 50
@@ -255,29 +262,6 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!136 &7343621978613046743
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 199809141171364430}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.65
-  m_Height: 1.88
-  m_Direction: 1
-  m_Center: {x: -0.08, y: 0.86, z: 0}
 --- !u!1 &338965464263269081
 GameObject:
   m_ObjectHideFlags: 0

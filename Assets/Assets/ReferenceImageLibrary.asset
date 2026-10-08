@@ -21,29 +21,59 @@ MonoBehaviour:
       m_GuidLow: 4940855867826817922
       m_GuidHigh: 4172231466806497173
     m_SerializedTextureGuid:
-      m_GuidLow: 6162287700096322761
-      m_GuidHigh: 3824251309074773672
-    m_Size: {x: 0.1, y: 0.09531025}
+      m_GuidLow: 6716093662795380335
+      m_GuidHigh: 10189835360374249818
+    m_Size: {x: 0.05, y: 0.050209865}
     m_SpecifySize: 1
     m_Name: Ballista
-    m_Texture: {fileID: 2800000, guid: 98000cc9d8035584a87639c94d781235, type: 3}
+    m_Texture: {fileID: 0}
   - m_SerializedGuid:
       m_GuidLow: 5571359722778738221
       m_GuidHigh: 10152927113868414602
     m_SerializedTextureGuid:
-      m_GuidLow: 9791977862813501640
-      m_GuidHigh: 15488430895727245320
-    m_Size: {x: 0.1, y: 0.099919096}
+      m_GuidLow: 2153873707401647193
+      m_GuidHigh: 1686990379324712363
+    m_Size: {x: 0.05, y: 0.050367262}
     m_SpecifySize: 1
     m_Name: Cannon
-    m_Texture: {fileID: 2800000, guid: 717cc8c817fc87e408f801a4d6f5f1d6, type: 3}
+    m_Texture: {fileID: 0}
   - m_SerializedGuid:
       m_GuidLow: 4709646830510050463
       m_GuidHigh: 5848372932694761603
     m_SerializedTextureGuid:
-      m_GuidLow: 8233806978055939750
-      m_GuidHigh: 11256221333804487657
-    m_Size: {x: 0.1, y: 0.099919096}
+      m_GuidLow: 10814407324664147349
+      m_GuidHigh: 10053550151214896122
+    m_Size: {x: 0.05, y: 0.05}
     m_SpecifySize: 1
     m_Name: Catapult
-    m_Texture: {fileID: 2800000, guid: 6c2826a65bd27244e9139742aa21369c, type: 3}
+    m_Texture: {fileID: 0}
+  - m_SerializedGuid:
+      m_GuidLow: 5355066201039955277
+      m_GuidHigh: 10459198059224592773
+    m_SerializedTextureGuid:
+      m_GuidLow: 15367592024409789327
+      m_GuidHigh: 3272997426173756456
+    m_Size: {x: 0.06, y: 0.06}
+    m_SpecifySize: 1
+    m_Name: Ballista
+    m_Texture: {fileID: 2800000, guid: 7412538fa786d54428c4da69d1056c2d, type: 3}
+  - m_SerializedGuid:
+      m_GuidLow: 5008587049879914137
+      m_GuidHigh: 17189851630321000126
+    m_SerializedTextureGuid:
+      m_GuidLow: 10048819244353018706
+      m_GuidHigh: 7798362018125729032
+    m_Size: {x: 0.06, y: 0.052141983}
+    m_SpecifySize: 1
+    m_Name: Cannon
+    m_Texture: {fileID: 0}
+  - m_SerializedGuid:
+      m_GuidLow: 4663773560592183247
+      m_GuidHigh: 13979302542304272004
+    m_SerializedTextureGuid:
+      m_GuidLow: 6905286849973513008
+      m_GuidHigh: 9819181432384299145
+    m_Size: {x: 0.06, y: 0.06}
+    m_SpecifySize: 1
+    m_Name: Catapult
+    m_Texture: {fileID: 0}
