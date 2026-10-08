@@ -127,13 +127,17 @@ public class LifeManager : MonoBehaviour
 
     void OnPlayerDeath()
     {
-        uiScript.deathScreen.SetActive(true);
-        uiScript.lifeBar.SetActive(false);
-        musicSource.volume = 0.3f;
-        audioSource.PlayOneShot(wastedSFX);
         
-        isDead = true;
-        
+        if (!isDead)
+        {
+           
+            uiScript.deathScreen.SetActive(true);
+            uiScript.lifeBar.SetActive(false);
+            musicSource.volume = 0.3f;
+            audioSource.PlayOneShot(wastedSFX);
+            isDead = true;
+        }
+
 
     }
 }
