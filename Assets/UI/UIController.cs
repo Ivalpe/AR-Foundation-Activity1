@@ -1,19 +1,26 @@
+using TMPro;
 using UnityEngine;
+using System.Collections;
 using UnityEngine.SceneManagement;
-using UnityEngine.XR.ARFoundation; 
+using UnityEngine.XR.ARFoundation;
+using UnityEngine.UI;
 
 public class UIController : MonoBehaviour
 {
     [Header("UI Components")]
     
     [SerializeField] private CanvasGroup startMenuCanvasGroup;
-    [SerializeField] private GameObject startMenu;
+    public GameObject startMenu;
     public GameObject deathScreen;
     public GameObject winScreen;
+    public TextMeshProUGUI waveText;
+    public GameObject lifeBar;
 
     [Header("AR Components")]
     
     [SerializeField] private ARSession arSession;
+    [SerializeField] WaveControl waveScript;
+    
 
     //[Header("Scene")]
     //public Object gameplayScene;
@@ -22,8 +29,15 @@ public class UIController : MonoBehaviour
     public AudioClip wastedSFX, startButtonSFX;
     public AudioSource audioSource;
 
+    private void Awake()
+    {
+        
+    }
+
     private void Start()
     {
+        lifeBar.SetActive(false);
+        waveScript.enabled = false;
         audioSource = Camera.main.gameObject.GetComponent<AudioSource>();
         if (startMenu != null)
         {
@@ -31,6 +45,7 @@ public class UIController : MonoBehaviour
             //startMenuCanvasGroup.interactable = true;
             //startMenuCanvasGroup.blocksRaycasts = true;
             startMenu.SetActive(true);
+            
 
         }
 
@@ -41,7 +56,12 @@ public class UIController : MonoBehaviour
         {
             arSession.enabled = false;
         }
+
+        waveText.text = "";
+        
     }
+
+   
 
  
     public void OnStartButtonClicked()
@@ -55,7 +75,9 @@ public class UIController : MonoBehaviour
             //startMenuCanvasGroup.blocksRaycasts = false;
             //if(gameplayScene != null) SceneManager.LoadScene(gameplayScene.name);
             startMenu.SetActive(false);
-            
+            waveScript.enabled = true;
+            lifeBar.SetActive(true);
+
             //restart the game?
         }
         else
@@ -77,11 +99,20 @@ public class UIController : MonoBehaviour
 
     public void OnStartMenuButtonClicked()
     {
+
+        GameObject.FindGameObjectWithTag("BGM").GetComponent<AudioSource>().volume = 1.0f;
+
         if(deathScreen && deathScreen.activeSelf) deathScreen.SetActive(false);
         if(winScreen && winScreen.activeSelf)
         {
             winScreen.SetActive(false);
         }
+
+        if(lifeBar && lifeBar.activeSelf)
+        {
+            lifeBar.SetActive(false);
+        } 
+            
 
         if (startMenu && !startMenu.activeSelf)
         {
@@ -95,4 +126,6 @@ public class UIController : MonoBehaviour
     {
         Application.Quit();
     }
+
+ 
 }

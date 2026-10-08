@@ -26,9 +26,10 @@ public class WaveControl : MonoBehaviour
 
     public UIController uiScript;
 
-    private int currentWave = 0;
+    public int currentWave = 0;
     private int maxWave = 3;
     public bool win = false;
+
    
 
     [SerializeField] public ARNavMeshManager navManager;
@@ -50,7 +51,8 @@ public class WaveControl : MonoBehaviour
             win = true;
 
         }
-           
+
+        
 
         if (win)
         {
@@ -58,6 +60,7 @@ public class WaveControl : MonoBehaviour
             if(currentWave <= maxWave)
             {
                 currentWave = maxWave + 1;
+                
             }
 
             GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
@@ -98,8 +101,13 @@ public class WaveControl : MonoBehaviour
 
             do
             {
-            
+                
                 currentWave++;
+                
+                StartCoroutine(AnnounceNewWave(currentWave));
+                
+                    
+
                 int countToSpawn = baseEnemies + (currentWave - 1) * enemiesIncreasePerWave;
 
                 for (int i = 0; i < countToSpawn; i++)
@@ -123,6 +131,7 @@ public class WaveControl : MonoBehaviour
                 Debug.Log("All waves completed!");
                 win = true;
             }
+            
 
     }
 
@@ -172,5 +181,12 @@ public class WaveControl : MonoBehaviour
         lookDir.y = 0;
         if (lookDir != Vector3.zero)
             enemy.transform.rotation = Quaternion.LookRotation(lookDir);
+    }
+
+    private IEnumerator AnnounceNewWave(int waveNum)
+    {
+        uiScript.waveText.text = "Wave " + waveNum + " !";
+        yield return new WaitForSeconds(3.0f);
+        uiScript.waveText.text = "";
     }
 }

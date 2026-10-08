@@ -1,16 +1,19 @@
 using NUnit.Framework;
+using System;
 using System.Collections;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class LifeManager : MonoBehaviour
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     [SerializeField] float hp = 10.0f;
-    [SerializeField] GameObject deathScreen;
-    [SerializeField] GameObject winScreen;
+    //[SerializeField] GameObject deathScreen;
+    //[SerializeField] GameObject winScreen;
+    [SerializeField] UIController uiScript;
 
     public WaveControl waveScript;
     public AudioClip oofSFX, wastedSFX;
@@ -26,10 +29,19 @@ public class LifeManager : MonoBehaviour
 
     void Start()
     {
-        
         camObj = Camera.main.gameObject;
         audioSource = camObj.GetComponent<AudioSource>();
-        musicSource = GameObject.FindGameObjectWithTag("BMG").GetComponent<AudioSource>();
+        musicSource = GameObject.FindGameObjectWithTag("BGM").GetComponent<AudioSource>();
+        InitializePlayer();
+        
+    }
+
+    void InitializePlayer()
+    {
+        
+        isDead = false;
+        hp = 10f;
+        waveScript.currentWave = 0;
     }
 
     // Update is called once per frame
@@ -42,6 +54,15 @@ public class LifeManager : MonoBehaviour
         {
             hp = 0;
             OnPlayerDeath();
+        }
+
+        Slider lifeBar;
+        lifeBar = uiScript.lifeBar.GetComponentInChildren<Slider>();
+        if (!lifeBar) lifeBar = uiScript.lifeBar.GetComponent<Slider>();
+
+        if (lifeBar) 
+        { 
+            lifeBar.value = hp; 
         }
     }
 
@@ -73,7 +94,11 @@ public class LifeManager : MonoBehaviour
 
     private void OnWin()
     {
-        if (waveScript.win == true) winScreen.SetActive(true);
+        if (waveScript.win == true)
+        {
+            uiScript.winScreen.SetActive(true);
+            uiScript.lifeBar.SetActive(false);
+        }
     }
 
     IEnumerator TakeDamage(float dmg, GameObject enemy)
@@ -85,7 +110,7 @@ public class LifeManager : MonoBehaviour
         Rigidbody rb = enemy.GetComponent<Rigidbody>();
         Vector3 knockDir = (-enemy.transform.forward.normalized + enemy.transform.up.normalized) * knockForce;
 
-        audioSource.pitch = Random.Range(0.7f, 1.5f);
+        audioSource.pitch = UnityEngine.Random.Range(0.7f, 1.5f);
         audioSource.PlayOneShot(oofSFX);
 
         rb.isKinematic = false;
@@ -102,7 +127,8 @@ public class LifeManager : MonoBehaviour
 
     void OnPlayerDeath()
     {
-        deathScreen.SetActive(true);
+        uiScript.deathScreen.SetActive(true);
+        uiScript.lifeBar.SetActive(false);
         musicSource.volume = 0.3f;
         audioSource.PlayOneShot(wastedSFX);
         GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
@@ -112,5 +138,6 @@ public class LifeManager : MonoBehaviour
             agent.isStopped = true;
         }
         isDead = true;
+
     }
 }
