@@ -150,8 +150,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::StartMenuController
   startMenuCanvasGroup: {fileID: 554685520}
+  startMenu: {fileID: 0}
+  deathScreen: {fileID: 0}
+  winScreen: {fileID: 0}
+  waveText: {fileID: 0}
+  lifeBar: {fileID: 0}
   arSession: {fileID: 1167446572}
-  gameplayScene: {fileID: 102900000, guid: 771f18fb56631254bbde0214329dfba3, type: 3}
+  waveScript: {fileID: 727973733}
+  yaySFX: {fileID: 0}
+  wastedSFX: {fileID: 0}
+  startButtonSFX: {fileID: 0}
+  audioSource: {fileID: 0}
 --- !u!4 &80178108
 Transform:
   m_ObjectHideFlags: 0
@@ -429,8 +438,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::StartMenuController
   startMenuCanvasGroup: {fileID: 0}
+  startMenu: {fileID: 0}
+  deathScreen: {fileID: 0}
+  winScreen: {fileID: 0}
+  waveText: {fileID: 0}
+  lifeBar: {fileID: 0}
   arSession: {fileID: 0}
-  gameplayScene: {fileID: 0}
+  waveScript: {fileID: 0}
+  yaySFX: {fileID: 0}
+  wastedSFX: {fileID: 0}
+  startButtonSFX: {fileID: 0}
+  audioSource: {fileID: 0}
 --- !u!225 &554685520
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -481,6 +499,8 @@ MonoBehaviour:
   baseEnemies: 3
   enemiesIncreasePerWave: 2
   debugText: {fileID: 0}
+  uiScript: {fileID: 0}
+  currentWave: 0
   win: 0
   navManager: {fileID: 0}
 --- !u!4 &727973734

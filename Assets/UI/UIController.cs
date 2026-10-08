@@ -79,6 +79,7 @@ public class UIController : MonoBehaviour
             lifeBar.SetActive(true);
 
             //restart the game?
+            waveScript.Restart();
         }
         else
         {
