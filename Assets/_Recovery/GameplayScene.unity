@@ -3926,6 +3926,7 @@ MonoBehaviour:
   lifeBar: {fileID: 305177070}
   arSession: {fileID: 1167446572}
   waveScript: {fileID: 1298060457}
+  lifeManager: {fileID: 1520459804}
   yaySFX: {fileID: 8300000, guid: 9532ca030406e9c429c3f8e7ace936ba, type: 3}
   wastedSFX: {fileID: 8300000, guid: 91c8b9db77ac3e54caf86b1e0d527c9d, type: 3}
   startButtonSFX: {fileID: 8300000, guid: 28b59777af7948044aee46a768003ae2, type: 3}

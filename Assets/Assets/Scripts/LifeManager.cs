@@ -32,11 +32,11 @@ public class LifeManager : MonoBehaviour
         camObj = Camera.main.gameObject;
         audioSource = camObj.GetComponent<AudioSource>();
         musicSource = GameObject.FindGameObjectWithTag("BGM").GetComponent<AudioSource>();
-        InitializePlayer();
-        
+        //InitializePlayer();
+
     }
 
-    void InitializePlayer()
+    public void InitializePlayer()
     {
         
         isDead = false;
@@ -131,13 +131,9 @@ public class LifeManager : MonoBehaviour
         uiScript.lifeBar.SetActive(false);
         musicSource.volume = 0.3f;
         audioSource.PlayOneShot(wastedSFX);
-        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
-        foreach(GameObject enemy in enemies)
-        {
-            NavMeshAgent agent = enemy.GetComponent<NavMeshAgent>();
-            agent.isStopped = true;
-        }
+        
         isDead = true;
+        
 
     }
 }

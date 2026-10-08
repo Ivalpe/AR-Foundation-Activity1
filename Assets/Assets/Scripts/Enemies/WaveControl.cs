@@ -103,10 +103,10 @@ public class WaveControl : MonoBehaviour
             Debug.Log("NAVMESH  READY");
         }
 
-        currentWave++;
+        currentWave = 0;
         while (currentWave <= maxWave)
         {
-
+            currentWave++;
 
 
             StartCoroutine(AnnounceNewWave(currentWave));

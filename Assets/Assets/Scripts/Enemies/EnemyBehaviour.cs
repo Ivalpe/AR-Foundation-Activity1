@@ -121,7 +121,7 @@ public class EnemyBehaviour : MonoBehaviour
                 if(stepTimer >= stepInt)
                 {
                     stepTimer = 0;
-                    animalSource.volume = UnityEngine.Random.Range(0.4f, 0.8f);
+                    animalSource.volume = UnityEngine.Random.Range(0.5f, 0.8f);
                     animalSource.pitch = UnityEngine.Random.Range(0.8f, 1.2f);
                     animalSource.PlayOneShot(stepSFX[UnityEngine.Random.Range(0, stepSFX.Length)]);
                     animalSource.pitch = 1f;

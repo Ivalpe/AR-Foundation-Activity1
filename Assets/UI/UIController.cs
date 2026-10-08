@@ -20,7 +20,8 @@ public class UIController : MonoBehaviour
     
     [SerializeField] private ARSession arSession;
     [SerializeField] WaveControl waveScript;
-    
+    [SerializeField] LifeManager lifeManager;
+
 
     //[Header("Scene")]
     //public Object gameplayScene;
@@ -28,16 +29,18 @@ public class UIController : MonoBehaviour
     public AudioClip yaySFX;
     public AudioClip wastedSFX, startButtonSFX;
     public AudioSource audioSource;
+   
 
     private void Awake()
     {
-        
+       if(waveScript != null) waveScript.enabled = false;
     }
 
     private void Start()
     {
         lifeBar.SetActive(false);
-        waveScript.enabled = false;
+        waveScript.gameObject.SetActive(false);
+        
         audioSource = Camera.main.gameObject.GetComponent<AudioSource>();
         if (startMenu != null)
         {
@@ -75,10 +78,12 @@ public class UIController : MonoBehaviour
             //startMenuCanvasGroup.blocksRaycasts = false;
             //if(gameplayScene != null) SceneManager.LoadScene(gameplayScene.name);
             startMenu.SetActive(false);
+            waveScript.gameObject.SetActive(true);
             waveScript.enabled = true;
             lifeBar.SetActive(true);
 
             //restart the game?
+            lifeManager.InitializePlayer();
             waveScript.Restart();
         }
         else
@@ -103,7 +108,23 @@ public class UIController : MonoBehaviour
 
         GameObject.FindGameObjectWithTag("BGM").GetComponent<AudioSource>().volume = 1.0f;
 
-        if(deathScreen && deathScreen.activeSelf) deathScreen.SetActive(false);
+        GameObject[] weapons = GameObject.FindGameObjectsWithTag("Weapon");
+        foreach (GameObject w in weapons)
+        {
+            //NavMeshAgent agent = enemy.GetComponent<NavMeshAgent>();
+            //agent.isStopped = true;
+            
+            Destroy(w);
+        }
+        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+        foreach (GameObject e in enemies)
+        {
+            //NavMeshAgent agent = enemy.GetComponent<NavMeshAgent>();
+            //agent.isStopped = true;
+            Destroy(e);
+        }
+
+        if (deathScreen && deathScreen.activeSelf) deathScreen.SetActive(false);
         if(winScreen && winScreen.activeSelf)
         {
             winScreen.SetActive(false);
